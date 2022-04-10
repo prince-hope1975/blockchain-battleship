@@ -4,6 +4,19 @@ import * as backend from "./build/index.main.mjs";
 const stdlib = loadStdlib();
 const startingBalance = stdlib.parseCurrency(100);
 
+const createArray = (num, content) => {
+  let arr = [];
+  for (let i = 0; i < num; i++) {
+    arr[i] = [];
+    for (let j = 0; j < num; j++) {
+      // @ts-ignore
+      arr[i][j] = content;
+    }
+  }
+  return arr;
+};
+const arr = createArray(10, 0)
+
 const accAlice = await stdlib.newTestAccount(startingBalance);
 const accBob = await stdlib.newTestAccount(startingBalance);
 
@@ -15,12 +28,11 @@ const beforeBob = await getBalance(accBob);
 const ctcAlice = accAlice.contract(backend);
 const ctcBob = accBob.contract(backend, ctcAlice.getInfo());
 
-const thePass = stdlib.randomUInt();
 const common = {
   getBoard: () => {
     console.log(`Bob asked to give the preimage.`);
-    console.log(`Returning: ${thePass}`);
-    return thePass;
+    console.log(`Returning: ${arr}`);
+    return arr;
   },
   sendToFront: (value) => {
     value.forEach((bigNumber) => {
