@@ -33,7 +33,7 @@
 
 ## 🧐 Problem Statement <a name = "problem_statement"></a>
 
-Having a fair implementation of Battleship on the blockchain is fairly difficult, and tha's exactly what is implemented on the blockchain.
+Having a fair implementation of Battleship on the blockchain is fairly difficult, and that's exactly what is implemented on this repo using reach.
 
 <!-- - IDEAL: This section is used to describe the desired or “to be” state of the process or product. At large, this section
   should illustrate what the expected environment would look like once the solution is implemented.
