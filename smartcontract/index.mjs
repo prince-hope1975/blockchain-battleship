@@ -3,7 +3,9 @@ import * as backend from "./build/index.main.mjs";
 
 const stdlib = loadStdlib();
 const startingBalance = stdlib.parseCurrency(100);
+    const interact = { ...stdlib.hasRandom };
 
+const fmt = (x) => stdlib.formatCurrency(x, 4);
 const createArray = (num, content) => {
   let arr = [];
   for (let i = 0; i < num; i++) {
@@ -16,6 +18,8 @@ const createArray = (num, content) => {
   return arr;
 };
 const arr = createArray(10, 0)
+
+console.log(arr)
 
 const accAlice = await stdlib.newTestAccount(startingBalance);
 const accBob = await stdlib.newTestAccount(startingBalance);
@@ -63,16 +67,45 @@ const common = {
   seeOutcome: (outcome) => {
     console.log(`someone saw outcome ${[outcome]}`);
   },
+  updateShip:async()=>{
+    interact.ship = [true, false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]
+  }
 };
 
 await Promise.all([
   backend.Alice(ctcAlice, {
+    ...common,
     amt: stdlib.parseCurrency(25),
     deadline: 10,
     wager: stdlib.parseCurrency(10)
   }),
   backend.Bob(ctcBob, {
     ...common,
+    acceptWager:async ()=>{
+if (Math.random() <= 0.5) {
+        for (let i = 0; i < 10; i++) {
+          console.log(`  Bob takes his sweet time...`);
+          await stdlib.wait(1);
+        }
+      } else {
+        console.log(`Bob accepts the wager of ${fmt(interact.amt)}.`);
+      }
+    }
   }),
 ]);
 

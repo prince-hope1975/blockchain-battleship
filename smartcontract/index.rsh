@@ -32,6 +32,7 @@ const common = {
   getBoard: Fun([], Array(Array(UInt, 10), 10)),
   sendToFront: Fun([Array(UInt, 10)], Null),
   Ship: Array(Bool, 15),
+  updateShip:Fun([], Null)
 };
 const Player = {
   // ...hasRandom,
@@ -70,6 +71,7 @@ export const main = Reach.App(() => {
   commit();
 
   Bob.only(() => {
+    interact.updateShip()
     const _board = interact.getBoard()
     interact.acceptWager(wager);
   });
