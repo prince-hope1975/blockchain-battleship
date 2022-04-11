@@ -32,7 +32,7 @@ const beforeBob = await getBalance(accBob);
 const ctcAlice = accAlice.contract(backend);
 const ctcBob = accBob.contract(backend, ctcAlice.getInfo());
 const Player = () => {
-  let ship = [
+  let Ship = [
     false,
     false,
     false,
@@ -51,79 +51,52 @@ const Player = () => {
   ];
   const getBoard = () => {
     console.log(`Bob asked to give the preimage.`);
-    console.log(`Returning: ${arr}`);
     return arr;
   };
-  up
-  return { ship, getBoad };
+  const updateShip =()=>{
+    Ship = [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+    ];
+  }
+  const seeShip=()=>console.log(Ship)
+  const informTimeout = ()=>{
+    console.log(`someone observed a timeout`);
+  }
+  const seeOutcome = ()=>{
+    console.log(`someone saw outcome `);
+  }
+  const sendToFront = (value) =>{
+     value.forEach((bigNumber) => {
+       console.log(stdlib.bigNumberToNumber(bigNumber));
+     });
+  }
+  return { Ship, getBoard, updateShip, informTimeout, seeOutcome, sendToFront, seeShip };
 };
 
-const common = {
-  getBoard: () => {
-    console.log(`Bob asked to give the preimage.`);
-    console.log(`Returning: ${arr}`);
-    return arr;
-  },
-  sendToFront: (value) => {
-    value.forEach((bigNumber) => {
-      console.log(stdlib.bigNumberToNumber(bigNumber));
-    });
-  },
-  ship: [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ],
-  informTimeout: () => {
-    console.log(`someone observed a timeout`);
-  },
-  seeOutcome: (outcome) => {
-    console.log(`someone saw outcome ${[outcome]}`);
-  },
-  updateShip: async () => {
-    interact.ship = [
-      true,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-    ];
-  },
-};
 
 await Promise.all([
   backend.Alice(ctcAlice, {
-    ...common,
+    ...Player(),
     amt: stdlib.parseCurrency(25),
     deadline: 10,
     wager: stdlib.parseCurrency(10),
   }),
   backend.Bob(ctcBob, {
-    ...common,
+    ...Player(),
     acceptWager: async () => {
       if (Math.random() <= 0.5) {
         for (let i = 0; i < 10; i++) {
@@ -131,7 +104,10 @@ await Promise.all([
           await stdlib.wait(1);
         }
       } else {
-        console.log(`Bob accepts the wager of ${fmt(interact.amt)}.`);
+        console.log(`Bob accepts the wager of
+        .`);
+        //  ${fmt(interact.amt)}
+
       }
     },
   }),

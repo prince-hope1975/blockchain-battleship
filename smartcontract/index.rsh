@@ -31,10 +31,12 @@ const common = {
   updateShip: Fun([], Null),
   seeOutcome: Fun([UInt], Null),
   informTimeout: Fun([], Null),
+  seeShip: Fun([Array(Bool, 15)], Null),
 };
 
 
 export const main = Reach.App(() => {
+
   const Alice = Participant("Alice", {
     ...common,
     wager: UInt,
@@ -56,6 +58,10 @@ export const main = Reach.App(() => {
     const _board = interact.getBoard()
     const wager = declassify(interact.wager);
     const deadline = declassify(interact.deadline);
+      const ship = declassify(interact.Ship);
+      interact.seeShip(ship);
+      interact.updateShip();
+      interact.seeShip(ship);
   });
 
   Alice.publish(wager, deadline).pay(wager);
