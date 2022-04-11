@@ -7,14 +7,11 @@
 //
 
 
-const [isHand, ROCK, PAPER, SCISSORS] = makeEnum(3);
 const [isOutcome, B_WINS, DRAW, A_WINS] = makeEnum(3);
 
 const winner = (handAlice, handBob) => (handAlice + (4 - handBob)) % 3;
 
-assert(winner(ROCK, PAPER) == B_WINS);
-assert(winner(PAPER, ROCK) == A_WINS);
-assert(winner(ROCK, ROCK) == DRAW);
+
 
 forall(UInt, (handAlice) =>
   forall(UInt, (handBob) => assert(isOutcome(winner(handAlice, handBob))))
@@ -30,27 +27,21 @@ const didShipGetHit = (board, position) => {
 };
 const common = {
   getBoard: Fun([], Array(Array(UInt, 10), 10)),
-  sendToFront: Fun([Array(UInt, 10)], Null),
   Ship: Array(Bool, 15),
-  updateShip:Fun([], Null)
-};
-const Player = {
-  // ...hasRandom,
-  // getHand: Fun([], UInt),
+  updateShip: Fun([], Null),
   seeOutcome: Fun([UInt], Null),
   informTimeout: Fun([], Null),
 };
 
+
 export const main = Reach.App(() => {
   const Alice = Participant("Alice", {
-    ...Player,
     ...common,
     wager: UInt,
     deadline: UInt,
   });
   const Bob = Participant("Bob", {
     ...common,
-    ...Player,
     acceptWager: Fun([UInt], Null),
   });
   init();

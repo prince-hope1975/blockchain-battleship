@@ -3,7 +3,7 @@ import * as backend from "./build/index.main.mjs";
 
 const stdlib = loadStdlib();
 const startingBalance = stdlib.parseCurrency(100);
-    const interact = { ...stdlib.hasRandom };
+const interact = { ...stdlib.hasRandom };
 
 const fmt = (x) => stdlib.formatCurrency(x, 4);
 const createArray = (num, content) => {
@@ -17,9 +17,9 @@ const createArray = (num, content) => {
   }
   return arr;
 };
-const arr = createArray(10, 0)
+const arr = createArray(10, 0);
 
-console.log(arr)
+console.log(arr);
 
 const accAlice = await stdlib.newTestAccount(startingBalance);
 const accBob = await stdlib.newTestAccount(startingBalance);
@@ -31,6 +31,32 @@ const beforeBob = await getBalance(accBob);
 
 const ctcAlice = accAlice.contract(backend);
 const ctcBob = accBob.contract(backend, ctcAlice.getInfo());
+const Player = () => {
+  let ship = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
+  const getBoard = () => {
+    console.log(`Bob asked to give the preimage.`);
+    console.log(`Returning: ${arr}`);
+    return arr;
+  };
+  up
+  return { ship, getBoad };
+};
 
 const common = {
   getBoard: () => {
@@ -67,24 +93,26 @@ const common = {
   seeOutcome: (outcome) => {
     console.log(`someone saw outcome ${[outcome]}`);
   },
-  updateShip:async()=>{
-    interact.ship = [true, false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]
-  }
+  updateShip: async () => {
+    interact.ship = [
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ];
+  },
 };
 
 await Promise.all([
@@ -92,12 +120,12 @@ await Promise.all([
     ...common,
     amt: stdlib.parseCurrency(25),
     deadline: 10,
-    wager: stdlib.parseCurrency(10)
+    wager: stdlib.parseCurrency(10),
   }),
   backend.Bob(ctcBob, {
     ...common,
-    acceptWager:async ()=>{
-if (Math.random() <= 0.5) {
+    acceptWager: async () => {
+      if (Math.random() <= 0.5) {
         for (let i = 0; i < 10; i++) {
           console.log(`  Bob takes his sweet time...`);
           await stdlib.wait(1);
@@ -105,7 +133,7 @@ if (Math.random() <= 0.5) {
       } else {
         console.log(`Bob accepts the wager of ${fmt(interact.amt)}.`);
       }
-    }
+    },
   }),
 ]);
 
