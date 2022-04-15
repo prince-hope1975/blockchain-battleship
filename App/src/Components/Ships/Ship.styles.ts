@@ -7,10 +7,11 @@ export const Wrapper = styled.div<{
   isSunk: boolean;
 }>`
   background-color: ${({ hitPosition, index }) => {
-    if (hitPosition[index]?.isHit) return "grey";
+    if (hitPosition[index]?.isHit)
     return "blue";
+    return "grey";
   }};
-  width: 5rem;
+  width: 2rem;
   aspect-ratio: 1;
   border: 1px solid black;
   position: relative;

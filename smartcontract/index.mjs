@@ -1,9 +1,12 @@
 import { loadStdlib } from "@reach-sh/stdlib";
 import * as backend from "./build/index.main.mjs";
+import { Data, arrData } from "./trial.js";
 
 const stdlib = loadStdlib();
 const startingBalance = stdlib.parseCurrency(100);
 const interact = { ...stdlib.hasRandom };
+
+let currentPlayer;
 
 const fmt = (x) => stdlib.formatCurrency(x, 4);
 const createArray = (num, content) => {
@@ -17,7 +20,7 @@ const createArray = (num, content) => {
   }
   return arr;
 };
-const arr = createArray(10, 0);
+const arr = Data
 
 console.log(arr);
 
@@ -32,6 +35,7 @@ const beforeBob = await getBalance(accBob);
 const ctcAlice = accAlice.contract(backend);
 const ctcBob = accBob.contract(backend, ctcAlice.getInfo());
 const Player = () => {
+  const interact = { ...stdlib.hasRandom };
   let Ship = [
     false,
     false,
@@ -53,40 +57,52 @@ const Player = () => {
     console.log(`Bob asked to give the preimage.`);
     return arr;
   };
-  const updateShip =()=>{
-    Ship = [
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-      true,
-    ];
-  }
-  const seeShip=()=>console.log(Ship)
-  const informTimeout = ()=>{
+  let i =0
+  const updateShip = () => {
+    for (let singleShip in Ship) {
+      if (Ship[singleShip] === false) {
+        Ship[singleShip] = true;
+        break;
+      }
+    }
+    interact.Ship = Ship
+  };
+  const getShip = () => {
+    
+    return Ship;
+  };
+  
+  const informTimeout = () => {
     console.log(`someone observed a timeout`);
-  }
-  const seeOutcome = ()=>{
+  };
+  const seeOutcome = () => {
     console.log(`someone saw outcome `);
+  };
+  const sendToFront = (value) => {
+    value.forEach((bigNumber) => {
+      console.log(stdlib.bigNumberToNumber(bigNumber));
+    });
+  };
+  const print =(data)=>{
+    console.log("val",data)
   }
-  const sendToFront = (value) =>{
-     value.forEach((bigNumber) => {
-       console.log(stdlib.bigNumberToNumber(bigNumber));
-     });
+  const getHand = ()=>{
+    i++
+    return  arrData[i]
   }
-  return { Ship, getBoard, updateShip, informTimeout, seeOutcome, sendToFront, seeShip };
+  const setPlayer =(bool)=>{currentPlayer = bool}
+  return {
+    Ship,
+    getBoard,
+    updateShip,
+    informTimeout,
+    seeOutcome,
+    sendToFront,
+    getShip,
+    print, 
+    getHand
+  };
 };
-
 
 await Promise.all([
   backend.Alice(ctcAlice, {
@@ -98,16 +114,16 @@ await Promise.all([
   backend.Bob(ctcBob, {
     ...Player(),
     acceptWager: async () => {
-      if (Math.random() <= 0.5) {
+      if (Math.random() >= 1) {
         for (let i = 0; i < 10; i++) {
           console.log(`  Bob takes his sweet time...`);
           await stdlib.wait(1);
         }
       } else {
+          await stdlib.wait(1);
         console.log(`Bob accepts the wager of
         .`);
         //  ${fmt(interact.amt)}
-
       }
     },
   }),

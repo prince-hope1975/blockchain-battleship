@@ -29,7 +29,7 @@ const useGameBoardFactory = () => {
       ...mockArray[coordinate[0]][coordinate[1]],
       Element: elem,
       // @ts-ignore 
-      width:width=width
+      width:width
     };
     console.log(mockArray);
     setArray(mockArray);
@@ -38,6 +38,7 @@ const useGameBoardFactory = () => {
   return {
     PlaceOnGameBoard,
     arrayObj,
+    setArray,
   };
 };
 const GamePiece = ({ width }: { width?: number }) => {
@@ -55,8 +56,8 @@ const GamePiece = ({ width }: { width?: number }) => {
   );
 };
 
-export const Split = (Elem: { length: number  } & Function) => {
-  const arr = Elem({length:5});
+export const Split = (Elem:{length:number} & Function, numb?:number ) => {
+  const arr = Elem({length:numb||5,});
   console.log("Ship",arr.props.children)
   return arr.props.children;
 };
