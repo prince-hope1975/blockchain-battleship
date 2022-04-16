@@ -3,26 +3,24 @@ import useShipFactory, { range } from "./ShipFactory";
 import { Wrapper } from "./Ship.styles";
 import { ShipProps } from "./ShipFactory";
 
-const Ship = ({ length }: { length: number & range }) => {
+const useShip = ({ length }: { length: number & range }) => {
   const { setLength, makeHit, hitPosition, isSunk } = useShipFactory();
   useEffect(() => {
     setLength(length);
   }, []);
-
-  return (
-    <div>
-      {createIncreasingArray(length, 0).map(({}, index) => {
-        return (
-          <Box
-            index={index}
-            makeHit={makeHit}
-            hitPosition={hitPosition}
-            isSunk={isSunk}
-          />
-        );
-      })}
-    </div>
-  );
+  const BoxElem = ({ index } : { index: number }) => {
+    return (
+      <Box
+        index={index}
+        makeHit={makeHit}
+        hitPosition={hitPosition}
+        isSunk={isSunk}
+      />
+    );
+  };
+  return createIncreasingArray(length, 0).map(({}, index) => {
+    return BoxElem;
+  });
 };
 
 const Box = ({
@@ -40,7 +38,7 @@ const Box = ({
     //   @ts-ignore
 
     <Wrapper
-      onClick={() => makeHit(index)}
+      onClick={() => {makeHit(index);console.log(index)}}
       hitPosition={hitPosition}
       index={index}
       isSunk={isSunk}
@@ -59,4 +57,4 @@ const createIncreasingArray = (
   return newArr;
 };
 
-export default Ship;
+export default useShip;

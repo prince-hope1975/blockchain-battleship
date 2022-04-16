@@ -8,7 +8,7 @@ const useShipFactory = () => {
       if (position === index) return { isHit: true };
       return item;
     });
-
+    console.log(`arr ${length} `, hitPosition);
     setHitPosition(newArr);
   };
   useEffect(() => {
@@ -18,18 +18,18 @@ const useShipFactory = () => {
       arr = [...arr, { isHit: false }];
     }
     setHitPosition(arr);
+    console.log(`arr ${length} `,arr)
   }, [length]);
 
   useEffect(() => {
     if (hitPosition.some((e) => e.isHit === false)) return setSunk(false);
     setSunk(true);
-
   }, [hitPosition]);
 
   return { length, setLength, hitPosition, makeHit, isSunk };
 };
 
-export type range = 0|1 | 2 | 3 | 4 | 5;
+export type range = 0 | 1 | 2 | 3 | 4 | 5;
 export interface ShipProps {
   isHit: boolean;
 }

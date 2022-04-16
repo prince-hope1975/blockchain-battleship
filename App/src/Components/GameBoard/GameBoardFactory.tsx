@@ -21,6 +21,7 @@ const useGameBoardFactory = () => {
   const PlaceOnGameBoard = (
     elem: React.ReactElement,
     coordinate: Array<number>,
+    index?:number,
     width?:number
   ) => {
     console.log("array, ", array);
@@ -28,6 +29,7 @@ const useGameBoardFactory = () => {
     mockArray[coordinate[0]][coordinate[1]] = {
       ...mockArray[coordinate[0]][coordinate[1]],
       Element: elem,
+      index:index,
       // @ts-ignore 
       width:width
     };
@@ -58,7 +60,7 @@ const GamePiece = ({ width }: { width?: number }) => {
 
 export const Split = (Elem:{length:number} & Function, numb?:number ) => {
   const arr = Elem({length:numb||5,});
-  console.log("Ship",arr.props.children)
-  return arr.props.children;
+  console.log("Ship",arr)
+  return arr
 };
 export default useGameBoardFactory;
