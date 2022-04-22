@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import React from "react";
 const useShipFactory = () => {
-  const [length, setLength] = useState<number & range>(1);
-  const [hitPosition, setHitPosition] = useState([] as Array<ShipProps>);
-  const [isSunk, setSunk] = useState(false);
+  const [length, setLength] = React.useState<number & range>(1);
+  const [hitPosition, setHitPosition] = React.useState([] as Array<ShipProps>);
+  const [isSunk, setSunk] = React.useState(false);
   const makeHit = (position: number) => {
     const newArr = hitPosition.map((item, index) => {
       if (position === index) return { isHit: true };
@@ -11,7 +11,7 @@ const useShipFactory = () => {
     console.log(`arr ${length} `, hitPosition);
     setHitPosition(newArr);
   };
-  useEffect(() => {
+  React.useEffect(() => {
     let arr = [] as any;
     for (let i = 0; i <= length; i++) {
       // !console.logs
@@ -21,7 +21,7 @@ const useShipFactory = () => {
     console.log(`arr ${length} `,arr)
   }, [length]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (hitPosition.some((e) => e.isHit === false)) return setSunk(false);
     setSunk(true);
   }, [hitPosition]);

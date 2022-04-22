@@ -4,7 +4,7 @@
 // Iterate through each users turn and try and let them try to hit the other user
 // if it hit give them another chance to hit
 // once all a users box has been hit stop the game and declare the winner
-//
+// 
 
 const [isOutcome, B_WINS, DRAW, A_WINS] = makeEnum(3);
 
@@ -16,25 +16,19 @@ forall(UInt, (handAlice) =>
 );
 
 forall(UInt, (hand) => assert(winner(hand, hand) == DRAW));
-function didShipGetHit(board, position) {
-  if (board[position[0]][position[1]] == 1) {
-    return true;
-  } else {
-    return false;
-  }
-}
+
 const IsSunk = (arr) => {
   return Array.any(arr, (val) => val == true);
 };
 const common = {
-  getBoard: Fun([], Array(Array(UInt, 10), 10)),
+  getBoard: Fun([], Array(UInt,100)),
   Ship: Array(Bool, 15),
   updateShip: Fun([], Null),
   seeOutcome: Fun([Bool], Null),
   informTimeout: Fun([], Null),
   getShip: Fun([], Array(Bool, 15)),
   print: Fun([Bool], Null),
-  getHand: Fun([], Array(UInt, 2)),
+  getHand: Fun([], UInt),
   setPlayer: Fun([Bool], Null),
 };
 
@@ -94,20 +88,22 @@ export const main = Reach.App(() => {
       commit();
       Bob.only(() => {
         const bobHand = declassify(interact.getHand());
-        const [leftBob, rightBob] = bobHand;
+       
       });
-      Bob.publish(leftBob, rightBob);
+      Bob.publish(bobHand);
       commit();
 
       Alice.only(() => {
-        const val = board[leftBob % 10][rightBob % 10] == 1;
-        interact.print(val);
+        const val = board[bobHand %100] == 1;
         if (val) {
           interact.updateShip();
         }
+        const currentShip = declassify(interact.getShip());
+        const current = currentShip[14]
+        interact.print(currentShip[14]);
       });
-      Alice.publish(val);
-      turn = val;
+      Alice.publish(val, current);
+      turn = val && !current;
       continue;
     }
 
@@ -117,21 +113,23 @@ export const main = Reach.App(() => {
       commit();
       Alice.only(() => {
         const aliceHand = declassify(interact.getHand());
-        const [leftAlice, rightAlice] = aliceHand;
+        
       });
-      Alice.publish(leftAlice, rightAlice);
+      Alice.publish(aliceHand);
       commit();
 
       Bob.only(() => {
         const board = declassify(interact.getBoard());
-        const val = board[leftAlice % 10][rightAlice % 10] == 1;
-        interact.print(val);
+        const val = board[aliceHand %100] == 1;
         if (val) {
           interact.updateShip();
         }
+        const currentShip = declassify(interact.getShip())
+        const current = currentShip[14]
+        interact.print(current);
       });
-      Bob.publish(val);
-      bobTurn = val;
+      Bob.publish(val, current);
+      bobTurn = val && !current;
       continue;
     }
     commit();

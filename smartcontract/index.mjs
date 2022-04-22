@@ -88,7 +88,7 @@ const Player = () => {
   }
   const getHand = ()=>{
     i++
-    return  arrData[i]
+    return  arrData[i%10]
   }
   const setPlayer =(bool)=>{currentPlayer = bool}
   return {

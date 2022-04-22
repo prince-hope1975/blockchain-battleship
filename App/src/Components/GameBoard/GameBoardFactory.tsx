@@ -33,7 +33,7 @@ const useGameBoardFactory = () => {
       // @ts-ignore 
       width:width
     };
-    console.log(mockArray);
+    console.log(mockArray[coordinate[0]][coordinate[1]]);
     setArray(mockArray);
   };
 

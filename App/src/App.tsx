@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
 import useShip from "./Components/Ships/Ship";
-import { Split } from "./Components/GameBoard/GameBoardFactory";
 import useGameBoardFactory from "./Components/GameBoard/GameBoardFactory";
+import { loadStdlib } from "@reach-sh/stdlib";
+
+import * as backend from "./build/index.main.mjs";
+const reach = loadStdlib("ETH");
 const App = () => {
+
+  useEffect(()=>{
+    (async ()=>{
+      // const acc = await reach.getDefaultAccount()
+
+    })()
+  })
  const Sh = useShip({length:4})
    
     const { PlaceOnGameBoard, arrayObj, setArray } = useGameBoardFactory();
