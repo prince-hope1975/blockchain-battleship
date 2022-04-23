@@ -8,7 +8,6 @@ import {
 import { store } from '../../GameController';
 import { loadStdlib } from '@reach-sh/stdlib';
 
-import { WalletSelector } from "@xbacked-dao/algorand-wallet-select";
 
 
 const reach = loadStdlib((process.env.REACH_CONNECTOR_MODE = "ALGO"));
@@ -86,13 +85,12 @@ function Init({ setDismount, dismount, playBgSound, checkIfMusicPaused }) {
 	const handleAnimationEnd = () => {
 		if (dismount) dispatch({ type: 'SET_TIMELINE', payload: 'setup' });
 	};
-	const returnWallet = async (data) => {
-    if (!!data) {
-      console.log(data.connector.check());
-      console.log(await data.connector.connect());
-      console.log(data.connector.provider);
-    }
-  };
+  const connectWallet = async () =>{
+        const acc = await reach.getDefaultAccount();
+        dispatch({ type: "SET_ACC", payload: acc });
+        
+
+  }
 
 	return (
     <InitWindow>
@@ -124,8 +122,12 @@ function Init({ setDismount, dismount, playBgSound, checkIfMusicPaused }) {
           autoComplete="off"
           value={wager}
         />
-          {/* <WalletSelector returnWallet={returnWallet} /> */}
+
+        <span style={{ marginTop: "20px" }}>Use Default Account <br/>Or</span>
+        <input type="button" onClick={connectWallet} value={"Connect Wallet"}/>
+        {/* <WalletSelector returnWallet={returnWallet} /> */}
         {/* displays errors if name is invalid */}
+
         <p style={{ color: "red" }}>{error}</p>
         <button type="submit">Start game</button>
       </PlayerForm>

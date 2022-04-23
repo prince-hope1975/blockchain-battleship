@@ -12,6 +12,8 @@ import placePlayerShip from "../../game_helpers/placePlayerShip";
 import placeComputerShips from "../../game_helpers/placeComputerShips";
 import { store } from "../../GameController";
 import { loadStdlib } from "@reach-sh/stdlib";
+
+import SimpleDialog from "../dialog";
 const reach = loadStdlib();
 
 function GameSetup({ dismount, setDismount, fadeOutMusic }) {
@@ -20,6 +22,8 @@ function GameSetup({ dismount, setDismount, fadeOutMusic }) {
   const [currentShip, setCurrentShip] = useState(0);
   const [axis, setAxis] = useState("x");
   const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState("")
+  const [contractLoading, setContractLoading] = useState(false)
 
   // using a new loading state to avoid race conditions between the render
   // and setDismount. this causes the animation to load incorrectly.
@@ -88,6 +92,9 @@ function GameSetup({ dismount, setDismount, fadeOutMusic }) {
         onAnimationEnd={handleAnimationEnd}
         style={{ animation: dismount ? "fadeout 2s" : "fadein 2s" }}
       >
+       <SimpleDialog open={contractLoading}>
+         {message}
+       </SimpleDialog>
         <SetupTitle>
           {players.human.name}, Place Your {shipTypes[currentShip].name}:
         </SetupTitle>

@@ -64,15 +64,12 @@ export default function GameWindow() {
   useEffect(() => {
     (async () => {
       try {
-        console.log("accsdfd");
-        const acc = await reach.getDefaultAccount();
-        console.log("accsdfd");
         const newAccount = await reach.newAccountFromMnemonic(
           secret
         );
         console.log("newAccount", newAccount);
 
-        dispatch({ type: "SET_ACC", payload: acc });
+        dispatch({ type: "SET_ACC", payload: newAccount });
         dispatch({ type: "SET_BOB", payload: newAccount });
       } catch (error) {
         console.error(error);

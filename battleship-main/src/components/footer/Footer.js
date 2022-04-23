@@ -7,9 +7,7 @@ export default function Footer() {
     <FooterComponent>
       <FooterLinks />
       <FooterText>
-        Created by Alex Younger as part of{' '}
-        <a href="https://www.theodinproject.com">The Odin Project</a> Javascript
-        curriculum track.
+       Redesigned by Prince Charles <a href="https://github.com/prince-hope1975">Github</a>
       </FooterText>
     </FooterComponent>
   );

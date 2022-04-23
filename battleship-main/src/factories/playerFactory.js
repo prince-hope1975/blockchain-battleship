@@ -71,11 +71,13 @@ class Player {
   }
   async getHand() {
     console.log(`Please Play your hand ${this.name}`);
-    if (this.name.toLowerCase() === "computer") {
-      Waiter.callFn(true);
+    if (this.name.toLowerCase() !== "computer") {
+      alert("All systems go, Fire, Fire, Fire");
     }
     const hand = await new Promise((resolveHandP) => {
-      console.log(resolveHandP);
+      if ((this.name).toLowerCase() === "computer"){
+        Waiter.callFn(true);
+      }
       this.resolveHandP = resolveHandP;
       Fxn.setFn(resolveHandP);
     });
@@ -83,7 +85,6 @@ class Player {
   }
   async waitTillHandGot() {
     const hand = await new Promise((resolveHandP) => {
-      console.log(resolveHandP);
       Waiter.setFn(resolveHandP);
     });
     return hand;
@@ -91,6 +92,9 @@ class Player {
   playHand(hand) {
     console.log("hand,", hand);
     Fxn.callFn(hand);
+    if(this.name.toLowerCase() === "computer"){
+      alert("Enemy has fired, we are sendig the intel to HQ\n Please do not shoot until instructed to")
+    }
     // this.resolveHandP(hand)
   }
   fireShot(location, gameboard) {
@@ -111,8 +115,10 @@ export class Deployer extends Player {
     this.wager = reach.parseCurrency(this.wager); // UInt
     this.deadline = { ETH: 10, ALGO: 100, CFX: 1000 }[reach.connector]; // UInt
     backend.Alice(this.ctc, this);
+    alert("Contract is being deployed... Please wait")
     const ctcInfoStr = JSON.stringify(await this.ctc.getInfo(), null, 2);
     console.log("info", ctcInfoStr);
+    alert("Contract successfully deployed, Please wait for someone to attach")
     // !TODO display the info string
     this.ctcInfoStr = ctcInfoStr;
   }
@@ -123,10 +129,12 @@ export class Attacher extends Player {
     const wager = reach.formatCurrency(wagerAtomic, 4);
     console.log("Accepted Wager, ", wager);
   }
-
-  attach(ctcInfoStr) {
+  
+  async attach(ctcInfoStr) {
     this.ctc = this.acc.contract(backend, JSON.parse(ctcInfoStr));
     backend.Bob(this.ctc, this);
+    await this.ctc.getInfo()
+    alert("Contract has been sucessfully attached to, Please wait till you are given orders to fire")
   }
 }
 
