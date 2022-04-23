@@ -4,12 +4,11 @@
 // Iterate through each users turn and try and let them try to hit the other user
 // if it hit give them another chance to hit
 // once all a users box has been hit stop the game and declare the winner
-// 
+//
 
 const [isOutcome, B_WINS, DRAW, A_WINS] = makeEnum(3);
 
 const winner = (handAlice, handBob) => (handAlice + (4 - handBob)) % 3;
-const win = (alice, bob) => (alice ? 1 : bob ? 1 : 0);
 
 forall(UInt, (handAlice) =>
   forall(UInt, (handBob) => assert(isOutcome(winner(handAlice, handBob))))
@@ -17,11 +16,8 @@ forall(UInt, (handAlice) =>
 
 forall(UInt, (hand) => assert(winner(hand, hand) == DRAW));
 
-const IsSunk = (arr) => {
-  return Array.any(arr, (val) => val == true);
-};
 const common = {
-  getBoard: Fun([], Array(UInt,100)),
+  getBoard: Fun([], Array(UInt, 100)),
   Ship: Array(Bool, 15),
   updateShip: Fun([], Null),
   seeOutcome: Fun([Bool], Null),
@@ -70,79 +66,60 @@ export const main = Reach.App(() => {
   );
   require(balance() == 2 * wager);
 
-  var statement = Array.includes(shipAlice, false);
+  var statement = {isTrue: true, shipsBob:0, shipsAlice:0};
   invariant(balance() == 2 * wager);
-  while (statement) {
+  while (statement["isTrue"]) {
     commit();
-
+    // Get Alice's Hand
     Alice.only(() => {
       const handAlice = declassify(interact.getHand());
     });
     Alice.publish(handAlice);
-    // commit()
-
-    var turn = true;
-    invariant(balance() == 2 * wager);
-    while (turn) {
-      commit();
-      Bob.only(() => {
-        const bobHand = declassify(interact.getHand());
-       
-      });
-      Bob.publish(bobHand);
-      commit();
-
-      Alice.only(() => {
-        const val = board[bobHand %100] == 1;
-        if (val) {
-          interact.updateShip();
-        }
-        const currentShip = declassify(interact.getShip());
-        const current = currentShip[14]
-      });
-      Alice.publish(val, current);
-      turn = val && !current;
-      continue;
-    }
-
-    var bobTurn = true;
-    invariant(balance() == 2 * wager);
-    while (bobTurn) {
-      commit();
-      Alice.only(() => {
-        const aliceHand = declassify(interact.getHand());
-        
-      });
-      Alice.publish(aliceHand);
-      commit();
-
-      Bob.only(() => {
-        const board = declassify(interact.getBoard());
-        const val = board[aliceHand %100] == 1;
-        if (val) {
-          interact.updateShip();
-        }
-        const currentShip = declassify(interact.getShip())
-        const current = currentShip[14]
-      });
-      Bob.publish(val, current);
-      bobTurn = val && !current;
-      continue;
-    }
     commit();
 
+    // Bob Plays his Hand
     Bob.only(() => {
-      const BobShips = declassify(interact.getShip());
+      const bobHand = declassify(interact.getHand());
     });
-    Bob.publish(BobShips);
+    Bob.publish(bobHand);
     commit();
 
+    // Alice Checks if the she has been hit and then publishes the result
     Alice.only(() => {
+      const val = board[bobHand % 100] == 1;
+      if (val) {
+        interact.updateShip();
+      }
       const AliceShips = declassify(interact.getShip());
     });
     Alice.publish(AliceShips);
+    commit();
+    // Compare with bobs Board and check if it's been hit
+    Bob.only(() => {
+      const board = declassify(interact.getBoard());
+      const BobVal = board[handAlice % 100] == 1;
+      if (BobVal) {
+        interact.updateShip();
+      }
+      const BobShips = declassify(interact.getShip());
+    });
 
-    statement = AliceShips[14] || BobShips[14] ? false : true;
+    // Checking the number of times the ship object was updated in the last update
+    Bob.publish(BobShips);
+    const countBob =Array.count(BobShips,(item)=>{
+      return item == true
+    })
+    const countAlice =Array.count(BobShips,(item)=>{
+      return item == true
+    })
+
+    // Checking if the front end cheated and provided dishonest values
+    possible(countBob<=statement["shipsBob"]+1 && countAlice<= statement["shipsAlice"]+1, "You are dishonest")
+    statement = {
+      isTrue: AliceShips[14] || BobShips[14] ? false : true,
+      shipsAlice: countAlice,
+      shipsBob: countBob,
+    };
     continue;
   }
   commit();
@@ -159,7 +136,6 @@ export const main = Reach.App(() => {
   Alice.publish(AliceShips);
 
   const outcome = AliceShips[14] ? true : BobShips[14] ? false : true;
-  // assert(outcome == A_WINS || outcome == B_WINS);
   transfer(2 * wager).to(outcome ? Alice : Bob);
   commit();
 

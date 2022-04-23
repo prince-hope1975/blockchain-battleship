@@ -9,17 +9,7 @@ const interact = { ...stdlib.hasRandom };
 let currentPlayer;
 
 const fmt = (x) => stdlib.formatCurrency(x, 4);
-const createArray = (num, content) => {
-  let arr = [];
-  for (let i = 0; i < num; i++) {
-    arr[i] = [];
-    for (let j = 0; j < num; j++) {
-      // @ts-ignore
-      arr[i][j] = content;
-    }
-  }
-  return arr;
-};
+
 const arr = Data
 
 console.log(arr);
