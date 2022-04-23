@@ -27,7 +27,6 @@ const common = {
   seeOutcome: Fun([Bool], Null),
   informTimeout: Fun([], Null),
   getShip: Fun([], Array(Bool, 15)),
-  print: Fun([Bool], Null),
   getHand: Fun([], UInt),
   setPlayer: Fun([Bool], Null),
 };
@@ -100,7 +99,6 @@ export const main = Reach.App(() => {
         }
         const currentShip = declassify(interact.getShip());
         const current = currentShip[14]
-        interact.print(currentShip[14]);
       });
       Alice.publish(val, current);
       turn = val && !current;
@@ -126,7 +124,6 @@ export const main = Reach.App(() => {
         }
         const currentShip = declassify(interact.getShip())
         const current = currentShip[14]
-        interact.print(current);
       });
       Bob.publish(val, current);
       bobTurn = val && !current;

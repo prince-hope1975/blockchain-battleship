@@ -25,6 +25,7 @@ async function computerTurn({
 		setTimeout(async() => {
 			 playSound('fireShot');
 			const shotLocation = computerAI(players.human);
+			await players.computer.waitTillHandGot()
 			await players.computer.playHand(shotLocation);
 
 			if (playerBoard.checkIfShotHit(shotLocation)) {

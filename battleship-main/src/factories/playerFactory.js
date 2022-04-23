@@ -1,7 +1,23 @@
 import Gameboard from "./gameboardFactory";
 import * as backend from "../build/index.main.mjs";
 import { loadStdlib } from "@reach-sh/stdlib";
-
+const callbackFn = () => {
+  let fn;
+  const setFn = (fxn) => {
+    fn = fxn;
+    console.log("fxn", fxn);
+  };
+  const callFn = (val) => {
+    fn(val);
+  };
+  return {
+    setFn,
+    callFn,
+  };
+};
+const Fxn = callbackFn();
+const Waiter = callbackFn();
+const waitFxn = () => {};
 
 const reach = loadStdlib((process.env.REACH_CONNECTOR_MODE = "ALGO"));
 
@@ -39,12 +55,6 @@ class Player {
     }
   }
   getBoard() {
-    console.log(
-      this.gameBoard.board.map((item) => {
-        if (item.hasShip !== false) return 1;
-        return 0;
-      })
-    );
     return this.gameBoard.board.map((item) => {
       if (item.hasShip !== false) return 1;
       return 0;
@@ -60,16 +70,28 @@ class Player {
     this.currentPlayer = Bool;
   }
   async getHand() {
+    console.log(`Please Play your hand ${this.name}`);
+    if (this.name.toLowerCase() === "computer") {
+      Waiter.callFn(true);
+    }
     const hand = await new Promise((resolveHandP) => {
-      console.log(resolveHandP)
+      console.log(resolveHandP);
       this.resolveHandP = resolveHandP;
+      Fxn.setFn(resolveHandP);
     });
     return hand;
   }
-  playHand(hand){
+  async waitTillHandGot() {
+    const hand = await new Promise((resolveHandP) => {
+      console.log(resolveHandP);
+      Waiter.setFn(resolveHandP);
+    });
+    return hand;
+  }
+  playHand(hand) {
     console.log("hand,", hand);
-    this.resolveHandP(hand)
-
+    Fxn.callFn(hand);
+    // this.resolveHandP(hand)
   }
   fireShot(location, gameboard) {
     if (gameboard.opponentBoard()[location] === "empty") {
@@ -79,7 +101,6 @@ class Player {
 }
 
 export class Deployer extends Player {
-
   setWager(wager) {
     this.wager = wager;
     console.log(this);
@@ -91,7 +112,7 @@ export class Deployer extends Player {
     this.deadline = { ETH: 10, ALGO: 100, CFX: 1000 }[reach.connector]; // UInt
     backend.Alice(this.ctc, this);
     const ctcInfoStr = JSON.stringify(await this.ctc.getInfo(), null, 2);
-    console.log("info",ctcInfoStr)
+    console.log("info", ctcInfoStr);
     // !TODO display the info string
     this.ctcInfoStr = ctcInfoStr;
   }
