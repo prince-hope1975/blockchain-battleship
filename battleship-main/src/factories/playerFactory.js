@@ -17,8 +17,6 @@ const callbackFn = () => {
 };
 const Fxn = callbackFn();
 const Waiter = callbackFn();
-const waitFxn = () => {};
-
 const reach = loadStdlib((process.env.REACH_CONNECTOR_MODE = "ALGO"));
 
 class Player {
@@ -72,7 +70,7 @@ class Player {
   async getHand() {
     console.log(`Please Play your hand ${this.name}`);
     if (this.name.toLowerCase() !== "computer") {
-      alert("All systems go, Fire, Fire, Fire");
+      alert("All systems go! go! go!, Fireeeeee");
     }
     const hand = await new Promise((resolveHandP) => {
       if ((this.name).toLowerCase() === "computer"){
@@ -95,7 +93,6 @@ class Player {
     if(this.name.toLowerCase() === "computer"){
       alert("Enemy has fired, we are sendig the intel to HQ\n Please do not shoot until instructed to")
     }
-    // this.resolveHandP(hand)
   }
   fireShot(location, gameboard) {
     if (gameboard.opponentBoard()[location] === "empty") {

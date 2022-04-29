@@ -57,8 +57,7 @@ export const main = Reach.App(() => {
   unknowable(Bob, Alice(board));
 
   Bob.only(() => {
-    interact.updateShip();
-    const _board = interact.getBoard();
+    const board = declassify(interact.getBoard());
     interact.acceptWager(wager);
   });
   Bob.pay(wager).timeout(relativeTime(deadline), () =>
@@ -66,7 +65,7 @@ export const main = Reach.App(() => {
   );
   require(balance() == 2 * wager);
 
-  var statement = {isTrue: true, shipsBob:0, shipsAlice:0};
+  var statement = { isTrue: true, shipsBob: 0, shipsAlice: 0 };
   invariant(balance() == 2 * wager);
   while (statement["isTrue"]) {
     commit();
@@ -96,7 +95,6 @@ export const main = Reach.App(() => {
     commit();
     // Compare with bobs Board and check if it's been hit
     Bob.only(() => {
-      const board = declassify(interact.getBoard());
       const BobVal = board[handAlice % 100] == 1;
       if (BobVal) {
         interact.updateShip();
@@ -106,15 +104,19 @@ export const main = Reach.App(() => {
 
     // Checking the number of times the ship object was updated in the last update
     Bob.publish(BobShips);
-    const countBob =Array.count(BobShips,(item)=>{
-      return item == true
-    })
-    const countAlice =Array.count(BobShips,(item)=>{
-      return item == true
-    })
+    const countBob = Array.count(BobShips, (item) => {
+      return item == true;
+    });
+    const countAlice = Array.count(BobShips, (item) => {
+      return item == true;
+    });
 
     // Checking if the front end cheated and provided dishonest values
-    possible(countBob<=statement["shipsBob"]+1 && countAlice<= statement["shipsAlice"]+1, "You are dishonest")
+    possible(
+      countBob <= statement["shipsBob"] + 1 &&
+        countAlice <= statement["shipsAlice"] + 1,
+      "You are dishonest"
+    );
     statement = {
       isTrue: AliceShips[14] || BobShips[14] ? false : true,
       shipsAlice: countAlice,
