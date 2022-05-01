@@ -9,6 +9,7 @@
 
 </div>
 
+## Pleasae make sure ro interact with the game here  😱  <a href="https://battle-ship2.netlify.app/">BattleShip Game </a>
 ---
 
 <p align="center"> This Project is a battleship implementation on the blockchain
@@ -17,19 +18,15 @@
 
 ## 📝 Table of Contents
 
+- [## Pleasae make sure ro interact with the game here  😱  <a href="https://battle-ship2.netlify.app/">BattleShip Game </a>](#-pleasae-make-sure-ro-interact-with-the-game-here----battleship-game-)
 - [📝 Table of Contents](#-table-of-contents)
-- [🧐 Problem Statement <a name = "problem_statement"></a>](#-problem-statement-)
 - [🏁 Getting Started <a name = "getting_started"></a>](#-getting-started-)
 <!-- - [💡 Idea / Solution <a name = "idea"></a>](#-idea--solution-) -->
 <!-- - [⛓️ Dependencies / Limitations <a name = "limitations"></a>](#️-dependencies--limitations-) -->
 <!-- - [🚀 Future Scope <a name = "future_scope"></a>](#-future-scope-)
+- [## Pleasae make sure ro interact with the game here  😱  <a href="https://battle-ship2.netlify.app/">BattleShip Game </a>](#-pleasae-make-sure-ro-interact-with-the-game-here----battleship-game-)
+- [📝 Table of Contents](#-table-of-contents)
 - [🏁 Getting Started <a name = "getting_started"></a>](#-getting-started-)
-  - [Prerequisites](#prerequisites)
-  - [Installing](#installing)
-- [🎈 Usage <a name="usage"></a>](#-usage-)
-- [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
-- [✍️ Authors <a name = "authors"></a>](#️-authors-)
-- [🎉 Acknowledgments <a name = "acknowledgments"></a>](#-acknowledgments-) -->
 
 ## 🧐 Problem Statement <a name = "problem_statement"></a>
 
