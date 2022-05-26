@@ -60,8 +60,8 @@ export async function Alice(ctcTop, interact) {
   const v504 = stdlib.protect(ctc2, interact.wager, 'for Alice\'s interact field wager');
   
   const v523 = stdlib.protect(ctc3, await interact.getBoard(), {
-    at: './index.rsh:46:47:application',
-    fs: ['at ./index.rsh:45:13:application call to [unknown function] (defined at: ./index.rsh:45:17:function exp)'],
+    at: './index.rsh:44:47:application',
+    fs: ['at ./index.rsh:43:13:application call to [unknown function] (defined at: ./index.rsh:43:17:function exp)'],
     msg: 'getBoard',
     who: 'Alice'
     });
@@ -70,7 +70,7 @@ export async function Alice(ctcTop, interact) {
     args: [v504, v503, v487],
     evt_cnt: 3,
     funcNum: 0,
-    lct: stdlib.checkedBigNumberify('./index.rsh:52:9:dot', stdlib.UInt_max, '0'),
+    lct: stdlib.checkedBigNumberify('./index.rsh:50:9:dot', stdlib.UInt_max, '0'),
     onlyIf: true,
     out_tys: [ctc2, ctc2, ctc1],
     pay: [v504, []],
@@ -148,8 +148,8 @@ export async function Alice(ctcTop, interact) {
     ;
     ;
     stdlib.protect(ctc4, await interact.informTimeout(), {
-      at: './index.rsh:41:29:application',
-      fs: ['at ./index.rsh:40:9:application call to [unknown function] (defined at: ./index.rsh:40:27:function exp)', 'at reach standard library:192:8:application call to "after" (defined at: ./index.rsh:39:28:function exp)', 'at ./index.rsh:69:12:application call to "closeTo" (defined at: reach standard library:187:8:function exp)'],
+      at: './index.rsh:34:29:application',
+      fs: ['at ./index.rsh:33:9:application call to [unknown function] (defined at: ./index.rsh:33:27:function exp)', 'at reach standard library:192:8:application call to "after" (defined at: ./index.rsh:32:28:function exp)', 'at ./index.rsh:66:12:application call to "closeTo" (defined at: reach standard library:187:8:function exp)'],
       msg: 'informTimeout',
       who: 'Alice'
       });
@@ -161,10 +161,10 @@ export async function Alice(ctcTop, interact) {
     const {data: [], secs: v745, time: v744, didSend: v275, from: v743 } = txn2;
     const v747 = stdlib.add(v625, v625);
     ;
-    const v749 = stdlib.mul(stdlib.checkedBigNumberify('./index.rsh:71:24:decimal', stdlib.UInt_max, '2'), v625);
+    const v749 = stdlib.mul(stdlib.checkedBigNumberify('./index.rsh:68:24:decimal', stdlib.UInt_max, '2'), v625);
     const v750 = stdlib.eq(v747, v749);
     stdlib.assert(v750, {
-      at: './index.rsh:71:10:application',
+      at: './index.rsh:68:10:application',
       fs: [],
       msg: null,
       who: 'Alice'
@@ -174,13 +174,13 @@ export async function Alice(ctcTop, interact) {
     let v753 = v744;
     
     while (await (async () => {
-      const v764 = v752[stdlib.checkedBigNumberify('./index.rsh:75:19:array ref', stdlib.UInt_max, '0')];
+      const v764 = v752[stdlib.checkedBigNumberify('./index.rsh:72:19:array ref', stdlib.UInt_max, '0')];
       
       return v764;})()) {
-      const v766 = v752[stdlib.checkedBigNumberify('./index.rsh:76:11:array', stdlib.UInt_max, '1')];
+      const v766 = v752[stdlib.checkedBigNumberify('./index.rsh:73:11:array', stdlib.UInt_max, '1')];
       const v772 = stdlib.protect(ctc2, await interact.getHand(), {
-        at: './index.rsh:81:52:application',
-        fs: ['at ./index.rsh:80:15:application call to [unknown function] (defined at: ./index.rsh:80:19:function exp)'],
+        at: './index.rsh:78:52:application',
+        fs: ['at ./index.rsh:77:15:application call to [unknown function] (defined at: ./index.rsh:77:19:function exp)'],
         msg: 'getHand',
         who: 'Alice'
         });
@@ -192,7 +192,7 @@ export async function Alice(ctcTop, interact) {
         lct: v753,
         onlyIf: true,
         out_tys: [ctc2],
-        pay: [stdlib.checkedBigNumberify('./index.rsh:83:11:decimal', stdlib.UInt_max, '0'), []],
+        pay: [stdlib.checkedBigNumberify('./index.rsh:80:11:decimal', stdlib.UInt_max, '0'), []],
         sim_p: (async (txn3) => {
           const sim_r = { txns: [], mapRefs: [], maps: [] };
           let sim_txn_ctr = stdlib.UInt_max;
@@ -215,7 +215,7 @@ export async function Alice(ctcTop, interact) {
       ;
       const v777 = stdlib.addressEq(v624, v773);
       stdlib.assert(v777, {
-        at: './index.rsh:83:11:dot',
+        at: './index.rsh:80:11:dot',
         fs: [],
         msg: 'sender correct',
         who: 'Alice'
@@ -232,18 +232,18 @@ export async function Alice(ctcTop, interact) {
       ;
       const v815 = stdlib.addressEq(v743, v810);
       stdlib.assert(v815, {
-        at: './index.rsh:96:9:dot',
+        at: './index.rsh:95:9:dot',
         fs: [],
         msg: 'sender correct',
         who: 'Alice'
         });
-      const v818 = stdlib.mod(v811, stdlib.checkedBigNumberify('./index.rsh:101:35:decimal', stdlib.UInt_max, '100'));
+      const v818 = stdlib.mod(v811, stdlib.checkedBigNumberify('./index.rsh:100:35:decimal', stdlib.UInt_max, '100'));
       const v820 = v523[v818];
-      const v821 = stdlib.eq(v820, stdlib.checkedBigNumberify('./index.rsh:101:43:decimal', stdlib.UInt_max, '1'));
+      const v821 = stdlib.eq(v820, stdlib.checkedBigNumberify('./index.rsh:100:43:decimal', stdlib.UInt_max, '1'));
       if (v821) {
         stdlib.protect(ctc4, await interact.updateShip(), {
-          at: './index.rsh:103:28:application',
-          fs: ['at ./index.rsh:100:15:application call to [unknown function] (defined at: ./index.rsh:100:19:function exp)'],
+          at: './index.rsh:102:28:application',
+          fs: ['at ./index.rsh:99:15:application call to [unknown function] (defined at: ./index.rsh:99:19:function exp)'],
           msg: 'updateShip',
           who: 'Alice'
           });
@@ -251,8 +251,8 @@ export async function Alice(ctcTop, interact) {
       else {
         }
       const v822 = stdlib.protect(ctc1, await interact.getShip(), {
-        at: './index.rsh:105:53:application',
-        fs: ['at ./index.rsh:100:15:application call to [unknown function] (defined at: ./index.rsh:100:19:function exp)'],
+        at: './index.rsh:104:53:application',
+        fs: ['at ./index.rsh:99:15:application call to [unknown function] (defined at: ./index.rsh:99:19:function exp)'],
         msg: 'getShip',
         who: 'Alice'
         });
@@ -261,11 +261,11 @@ export async function Alice(ctcTop, interact) {
         const v844 = v840 ? v843 : v839;
         
         return v844;})
-      const v845 = stdlib.add(v766, stdlib.checkedBigNumberify('./index.rsh:106:56:decimal', stdlib.UInt_max, '1'));
+      const v845 = stdlib.add(v766, stdlib.checkedBigNumberify('./index.rsh:105:56:decimal', stdlib.UInt_max, '1'));
       const v846 = stdlib.le(v838, v845);
       stdlib.assert(v846, {
-        at: './index.rsh:106:12:application',
-        fs: ['at ./index.rsh:100:15:application call to [unknown function] (defined at: ./index.rsh:100:19:function exp)'],
+        at: './index.rsh:105:12:application',
+        fs: ['at ./index.rsh:99:15:application call to [unknown function] (defined at: ./index.rsh:99:19:function exp)'],
         msg: 'Dishonest front',
         who: 'Alice'
         });
@@ -277,7 +277,7 @@ export async function Alice(ctcTop, interact) {
         lct: v813,
         onlyIf: true,
         out_tys: [ctc1],
-        pay: [stdlib.checkedBigNumberify('./index.rsh:109:11:decimal', stdlib.UInt_max, '0'), []],
+        pay: [stdlib.checkedBigNumberify('./index.rsh:108:11:decimal', stdlib.UInt_max, '0'), []],
         sim_p: (async (txn5) => {
           const sim_r = { txns: [], mapRefs: [], maps: [] };
           let sim_txn_ctr = stdlib.UInt_max;
@@ -297,8 +297,8 @@ export async function Alice(ctcTop, interact) {
             const v865 = v861 ? v864 : v860;
             
             return v865;})
-          const v866 = v848[stdlib.checkedBigNumberify('./index.rsh:118:17:array ref', stdlib.UInt_max, '14')];
-          const v867 = v812[stdlib.checkedBigNumberify('./index.rsh:118:33:array ref', stdlib.UInt_max, '14')];
+          const v866 = v848[stdlib.checkedBigNumberify('./index.rsh:114:17:array ref', stdlib.UInt_max, '14')];
+          const v867 = v812[stdlib.checkedBigNumberify('./index.rsh:114:33:array ref', stdlib.UInt_max, '14')];
           const v868 = v866 ? true : v867;
           const v869 = v868 ? false : true;
           const v870 = [v869, v859, v852, v848, v812];
@@ -310,17 +310,17 @@ export async function Alice(ctcTop, interact) {
             const v753 = cv753;
             
             if (await (async () => {
-              const v764 = v752[stdlib.checkedBigNumberify('./index.rsh:75:19:array ref', stdlib.UInt_max, '0')];
+              const v764 = v752[stdlib.checkedBigNumberify('./index.rsh:72:19:array ref', stdlib.UInt_max, '0')];
               
               return v764;})()) {
-              const v766 = v752[stdlib.checkedBigNumberify('./index.rsh:76:11:array', stdlib.UInt_max, '1')];
+              const v766 = v752[stdlib.checkedBigNumberify('./index.rsh:73:11:array', stdlib.UInt_max, '1')];
               sim_r.isHalt = false;
               }
             else {
-              const v874 = v752[stdlib.checkedBigNumberify('./index.rsh:126:9:array', stdlib.UInt_max, '3')];
-              const v875 = v752[stdlib.checkedBigNumberify('./index.rsh:126:9:array', stdlib.UInt_max, '4')];
-              const v876 = v874[stdlib.checkedBigNumberify('./index.rsh:13:52:array ref', stdlib.UInt_max, '14')];
-              const v877 = v875[stdlib.checkedBigNumberify('./index.rsh:13:74:array ref', stdlib.UInt_max, '14')];
+              const v874 = v752[stdlib.checkedBigNumberify('./index.rsh:122:9:array', stdlib.UInt_max, '3')];
+              const v875 = v752[stdlib.checkedBigNumberify('./index.rsh:122:9:array', stdlib.UInt_max, '4')];
+              const v876 = v874[stdlib.checkedBigNumberify('./index.rsh:40:54:array ref', stdlib.UInt_max, '14')];
+              const v877 = v875[stdlib.checkedBigNumberify('./index.rsh:40:76:array ref', stdlib.UInt_max, '14')];
               const v878 = v877 ? false : true;
               const v879 = v876 ? true : v878;
               const v881 = v879 ? v624 : v743;
@@ -346,7 +346,7 @@ export async function Alice(ctcTop, interact) {
       ;
       const v851 = stdlib.addressEq(v624, v847);
       stdlib.assert(v851, {
-        at: './index.rsh:109:11:dot',
+        at: './index.rsh:108:11:dot',
         fs: [],
         msg: 'sender correct',
         who: 'Alice'
@@ -361,8 +361,8 @@ export async function Alice(ctcTop, interact) {
         const v865 = v861 ? v864 : v860;
         
         return v865;})
-      const v866 = v848[stdlib.checkedBigNumberify('./index.rsh:118:17:array ref', stdlib.UInt_max, '14')];
-      const v867 = v812[stdlib.checkedBigNumberify('./index.rsh:118:33:array ref', stdlib.UInt_max, '14')];
+      const v866 = v848[stdlib.checkedBigNumberify('./index.rsh:114:17:array ref', stdlib.UInt_max, '14')];
+      const v867 = v812[stdlib.checkedBigNumberify('./index.rsh:114:33:array ref', stdlib.UInt_max, '14')];
       const v868 = v866 ? true : v867;
       const v869 = v868 ? false : true;
       const v870 = [v869, v859, v852, v848, v812];
@@ -379,17 +379,17 @@ export async function Alice(ctcTop, interact) {
       
       
       }
-    const v874 = v752[stdlib.checkedBigNumberify('./index.rsh:126:9:array', stdlib.UInt_max, '3')];
-    const v875 = v752[stdlib.checkedBigNumberify('./index.rsh:126:9:array', stdlib.UInt_max, '4')];
-    const v876 = v874[stdlib.checkedBigNumberify('./index.rsh:13:52:array ref', stdlib.UInt_max, '14')];
-    const v877 = v875[stdlib.checkedBigNumberify('./index.rsh:13:74:array ref', stdlib.UInt_max, '14')];
+    const v874 = v752[stdlib.checkedBigNumberify('./index.rsh:122:9:array', stdlib.UInt_max, '3')];
+    const v875 = v752[stdlib.checkedBigNumberify('./index.rsh:122:9:array', stdlib.UInt_max, '4')];
+    const v876 = v874[stdlib.checkedBigNumberify('./index.rsh:40:54:array ref', stdlib.UInt_max, '14')];
+    const v877 = v875[stdlib.checkedBigNumberify('./index.rsh:40:76:array ref', stdlib.UInt_max, '14')];
     const v878 = v877 ? false : true;
     const v879 = v876 ? true : v878;
     const v881 = v879 ? v624 : v743;
     ;
     stdlib.protect(ctc4, await interact.seeOutcome(v879), {
-      at: './index.rsh:133:24:application',
-      fs: ['at ./index.rsh:132:7:application call to [unknown function] (defined at: ./index.rsh:132:25:function exp)'],
+      at: './index.rsh:129:24:application',
+      fs: ['at ./index.rsh:128:7:application call to [unknown function] (defined at: ./index.rsh:128:25:function exp)'],
       msg: 'seeOutcome',
       who: 'Alice'
       });
@@ -427,14 +427,14 @@ export async function Bob(ctcTop, interact) {
   ;
   const v638 = stdlib.add(v628, v626);
   const v642 = stdlib.protect(ctc3, await interact.getBoard(), {
-    at: './index.rsh:56:47:application',
-    fs: ['at ./index.rsh:55:11:application call to [unknown function] (defined at: ./index.rsh:55:15:function exp)'],
+    at: './index.rsh:54:47:application',
+    fs: ['at ./index.rsh:53:11:application call to [unknown function] (defined at: ./index.rsh:53:15:function exp)'],
     msg: 'getBoard',
     who: 'Bob'
     });
   stdlib.protect(ctc4, await interact.acceptWager(v625), {
-    at: './index.rsh:57:25:application',
-    fs: ['at ./index.rsh:55:11:application call to [unknown function] (defined at: ./index.rsh:55:15:function exp)'],
+    at: './index.rsh:55:25:application',
+    fs: ['at ./index.rsh:53:11:application call to [unknown function] (defined at: ./index.rsh:53:15:function exp)'],
     msg: 'acceptWager',
     who: 'Bob'
     });
@@ -460,22 +460,22 @@ export async function Bob(ctcTop, interact) {
         kind: 'to',
         tok: undefined /* Nothing */
         });
-      const v749 = stdlib.mul(stdlib.checkedBigNumberify('./index.rsh:71:24:decimal', stdlib.UInt_max, '2'), v625);
+      const v749 = stdlib.mul(stdlib.checkedBigNumberify('./index.rsh:68:24:decimal', stdlib.UInt_max, '2'), v625);
       const v751 = [true, stdlib.checkedBigNumberify('<builtin>', stdlib.UInt_max, '0'), stdlib.checkedBigNumberify('<builtin>', stdlib.UInt_max, '0'), v627, v627];
       const v752 = v751;
       const v753 = v744;
       
       if (await (async () => {
-        const v764 = v752[stdlib.checkedBigNumberify('./index.rsh:75:19:array ref', stdlib.UInt_max, '0')];
+        const v764 = v752[stdlib.checkedBigNumberify('./index.rsh:72:19:array ref', stdlib.UInt_max, '0')];
         
         return v764;})()) {
         sim_r.isHalt = false;
         }
       else {
-        const v874 = v752[stdlib.checkedBigNumberify('./index.rsh:126:9:array', stdlib.UInt_max, '3')];
-        const v875 = v752[stdlib.checkedBigNumberify('./index.rsh:126:9:array', stdlib.UInt_max, '4')];
-        const v876 = v874[stdlib.checkedBigNumberify('./index.rsh:13:52:array ref', stdlib.UInt_max, '14')];
-        const v877 = v875[stdlib.checkedBigNumberify('./index.rsh:13:74:array ref', stdlib.UInt_max, '14')];
+        const v874 = v752[stdlib.checkedBigNumberify('./index.rsh:122:9:array', stdlib.UInt_max, '3')];
+        const v875 = v752[stdlib.checkedBigNumberify('./index.rsh:122:9:array', stdlib.UInt_max, '4')];
+        const v876 = v874[stdlib.checkedBigNumberify('./index.rsh:40:54:array ref', stdlib.UInt_max, '14')];
+        const v877 = v875[stdlib.checkedBigNumberify('./index.rsh:40:76:array ref', stdlib.UInt_max, '14')];
         const v878 = v877 ? false : true;
         const v879 = v876 ? true : v878;
         const v881 = v879 ? v624 : v743;
@@ -537,8 +537,8 @@ export async function Bob(ctcTop, interact) {
     ;
     ;
     stdlib.protect(ctc4, await interact.informTimeout(), {
-      at: './index.rsh:41:29:application',
-      fs: ['at ./index.rsh:40:9:application call to [unknown function] (defined at: ./index.rsh:40:27:function exp)', 'at reach standard library:192:8:application call to "after" (defined at: ./index.rsh:39:28:function exp)', 'at ./index.rsh:69:12:application call to "closeTo" (defined at: reach standard library:187:8:function exp)'],
+      at: './index.rsh:34:29:application',
+      fs: ['at ./index.rsh:33:9:application call to [unknown function] (defined at: ./index.rsh:33:27:function exp)', 'at reach standard library:192:8:application call to "after" (defined at: ./index.rsh:32:28:function exp)', 'at ./index.rsh:66:12:application call to "closeTo" (defined at: reach standard library:187:8:function exp)'],
       msg: 'informTimeout',
       who: 'Bob'
       });
@@ -550,10 +550,10 @@ export async function Bob(ctcTop, interact) {
     const {data: [], secs: v745, time: v744, didSend: v275, from: v743 } = txn2;
     const v747 = stdlib.add(v625, v625);
     ;
-    const v749 = stdlib.mul(stdlib.checkedBigNumberify('./index.rsh:71:24:decimal', stdlib.UInt_max, '2'), v625);
+    const v749 = stdlib.mul(stdlib.checkedBigNumberify('./index.rsh:68:24:decimal', stdlib.UInt_max, '2'), v625);
     const v750 = stdlib.eq(v747, v749);
     stdlib.assert(v750, {
-      at: './index.rsh:71:10:application',
+      at: './index.rsh:68:10:application',
       fs: [],
       msg: null,
       who: 'Bob'
@@ -563,10 +563,10 @@ export async function Bob(ctcTop, interact) {
     let v753 = v744;
     
     while (await (async () => {
-      const v764 = v752[stdlib.checkedBigNumberify('./index.rsh:75:19:array ref', stdlib.UInt_max, '0')];
+      const v764 = v752[stdlib.checkedBigNumberify('./index.rsh:72:19:array ref', stdlib.UInt_max, '0')];
       
       return v764;})()) {
-      const v767 = v752[stdlib.checkedBigNumberify('./index.rsh:76:11:array', stdlib.UInt_max, '2')];
+      const v767 = v752[stdlib.checkedBigNumberify('./index.rsh:73:11:array', stdlib.UInt_max, '2')];
       const txn3 = await (ctc.recv({
         didSend: false,
         evt_cnt: 1,
@@ -579,24 +579,24 @@ export async function Bob(ctcTop, interact) {
       ;
       const v777 = stdlib.addressEq(v624, v773);
       stdlib.assert(v777, {
-        at: './index.rsh:83:11:dot',
+        at: './index.rsh:80:11:dot',
         fs: [],
         msg: 'sender correct',
         who: 'Bob'
         });
       const v780 = stdlib.protect(ctc0, await interact.getHand(), {
-        at: './index.rsh:88:50:application',
-        fs: ['at ./index.rsh:87:13:application call to [unknown function] (defined at: ./index.rsh:87:17:function exp)'],
+        at: './index.rsh:87:50:application',
+        fs: ['at ./index.rsh:86:13:application call to [unknown function] (defined at: ./index.rsh:86:17:function exp)'],
         msg: 'getHand',
         who: 'Bob'
         });
-      const v781 = stdlib.mod(v774, stdlib.checkedBigNumberify('./index.rsh:89:40:decimal', stdlib.UInt_max, '100'));
+      const v781 = stdlib.mod(v774, stdlib.checkedBigNumberify('./index.rsh:88:40:decimal', stdlib.UInt_max, '100'));
       const v783 = v642[v781];
-      const v784 = stdlib.eq(v783, stdlib.checkedBigNumberify('./index.rsh:89:48:decimal', stdlib.UInt_max, '1'));
+      const v784 = stdlib.eq(v783, stdlib.checkedBigNumberify('./index.rsh:88:48:decimal', stdlib.UInt_max, '1'));
       if (v784) {
         stdlib.protect(ctc4, await interact.updateShip(), {
-          at: './index.rsh:91:28:application',
-          fs: ['at ./index.rsh:87:13:application call to [unknown function] (defined at: ./index.rsh:87:17:function exp)'],
+          at: './index.rsh:90:28:application',
+          fs: ['at ./index.rsh:86:13:application call to [unknown function] (defined at: ./index.rsh:86:17:function exp)'],
           msg: 'updateShip',
           who: 'Bob'
           });
@@ -604,8 +604,8 @@ export async function Bob(ctcTop, interact) {
       else {
         }
       const v785 = stdlib.protect(ctc2, await interact.getShip(), {
-        at: './index.rsh:93:51:application',
-        fs: ['at ./index.rsh:87:13:application call to [unknown function] (defined at: ./index.rsh:87:17:function exp)'],
+        at: './index.rsh:92:51:application',
+        fs: ['at ./index.rsh:86:13:application call to [unknown function] (defined at: ./index.rsh:86:17:function exp)'],
         msg: 'getShip',
         who: 'Bob'
         });
@@ -614,11 +614,11 @@ export async function Bob(ctcTop, interact) {
         const v807 = v803 ? v806 : v802;
         
         return v807;})
-      const v808 = stdlib.add(v767, stdlib.checkedBigNumberify('./index.rsh:94:53:decimal', stdlib.UInt_max, '1'));
+      const v808 = stdlib.add(v767, stdlib.checkedBigNumberify('./index.rsh:93:53:decimal', stdlib.UInt_max, '1'));
       const v809 = stdlib.le(v801, v808);
       stdlib.assert(v809, {
-        at: './index.rsh:94:12:application',
-        fs: ['at ./index.rsh:87:13:application call to [unknown function] (defined at: ./index.rsh:87:17:function exp)'],
+        at: './index.rsh:93:12:application',
+        fs: ['at ./index.rsh:86:13:application call to [unknown function] (defined at: ./index.rsh:86:17:function exp)'],
         msg: 'Dishonest front',
         who: 'Bob'
         });
@@ -630,7 +630,7 @@ export async function Bob(ctcTop, interact) {
         lct: v775,
         onlyIf: true,
         out_tys: [ctc0, ctc2],
-        pay: [stdlib.checkedBigNumberify('./index.rsh:96:9:decimal', stdlib.UInt_max, '0'), []],
+        pay: [stdlib.checkedBigNumberify('./index.rsh:95:9:decimal', stdlib.UInt_max, '0'), []],
         sim_p: (async (txn4) => {
           const sim_r = { txns: [], mapRefs: [], maps: [] };
           let sim_txn_ctr = stdlib.UInt_max;
@@ -653,7 +653,7 @@ export async function Bob(ctcTop, interact) {
       ;
       const v815 = stdlib.addressEq(v743, v810);
       stdlib.assert(v815, {
-        at: './index.rsh:96:9:dot',
+        at: './index.rsh:95:9:dot',
         fs: [],
         msg: 'sender correct',
         who: 'Bob'
@@ -670,7 +670,7 @@ export async function Bob(ctcTop, interact) {
       ;
       const v851 = stdlib.addressEq(v624, v847);
       stdlib.assert(v851, {
-        at: './index.rsh:109:11:dot',
+        at: './index.rsh:108:11:dot',
         fs: [],
         msg: 'sender correct',
         who: 'Bob'
@@ -685,8 +685,8 @@ export async function Bob(ctcTop, interact) {
         const v865 = v861 ? v864 : v860;
         
         return v865;})
-      const v866 = v848[stdlib.checkedBigNumberify('./index.rsh:118:17:array ref', stdlib.UInt_max, '14')];
-      const v867 = v812[stdlib.checkedBigNumberify('./index.rsh:118:33:array ref', stdlib.UInt_max, '14')];
+      const v866 = v848[stdlib.checkedBigNumberify('./index.rsh:114:17:array ref', stdlib.UInt_max, '14')];
+      const v867 = v812[stdlib.checkedBigNumberify('./index.rsh:114:33:array ref', stdlib.UInt_max, '14')];
       const v868 = v866 ? true : v867;
       const v869 = v868 ? false : true;
       const v870 = [v869, v859, v852, v848, v812];
@@ -703,17 +703,17 @@ export async function Bob(ctcTop, interact) {
       
       
       }
-    const v874 = v752[stdlib.checkedBigNumberify('./index.rsh:126:9:array', stdlib.UInt_max, '3')];
-    const v875 = v752[stdlib.checkedBigNumberify('./index.rsh:126:9:array', stdlib.UInt_max, '4')];
-    const v876 = v874[stdlib.checkedBigNumberify('./index.rsh:13:52:array ref', stdlib.UInt_max, '14')];
-    const v877 = v875[stdlib.checkedBigNumberify('./index.rsh:13:74:array ref', stdlib.UInt_max, '14')];
+    const v874 = v752[stdlib.checkedBigNumberify('./index.rsh:122:9:array', stdlib.UInt_max, '3')];
+    const v875 = v752[stdlib.checkedBigNumberify('./index.rsh:122:9:array', stdlib.UInt_max, '4')];
+    const v876 = v874[stdlib.checkedBigNumberify('./index.rsh:40:54:array ref', stdlib.UInt_max, '14')];
+    const v877 = v875[stdlib.checkedBigNumberify('./index.rsh:40:76:array ref', stdlib.UInt_max, '14')];
     const v878 = v877 ? false : true;
     const v879 = v876 ? true : v878;
     const v881 = v879 ? v624 : v743;
     ;
     stdlib.protect(ctc4, await interact.seeOutcome(v879), {
-      at: './index.rsh:133:24:application',
-      fs: ['at ./index.rsh:132:7:application call to [unknown function] (defined at: ./index.rsh:132:25:function exp)'],
+      at: './index.rsh:129:24:application',
+      fs: ['at ./index.rsh:128:7:application call to [unknown function] (defined at: ./index.rsh:128:25:function exp)'],
       msg: 'seeOutcome',
       who: 'Bob'
       });
@@ -1230,7 +1230,7 @@ const _ETH = {
     "type": "receive"
   }
 ]`,
-  Bytecode: `0x6080604052604051620018c0380380620018c08339810160408190526200002691620002be565b60008080554360035560408051602081018252918252517f2edb4cb1a68a508b300bbe382e71d681db6fc54cd68b1672ef4edca2513b8e74906200006e9033908590620003b0565b60405180910390a16020820151516200008b903414600762000115565b60208083015101516200009f9043620003fe565b8152620000ab6200013f565b3381526020808401805151828401525160409081015181840152835160608401526001600081905543905551620000e59183910162000425565b604051602081830303815290604052600290805190602001906200010b9291906200016d565b50505050620004a5565b816200013b5760405163100960cb60e01b81526004810182905260240160405180910390fd5b5050565b604080516080810182526000808252602082015290810162000160620001fc565b8152602001600081525090565b8280546200017b9062000468565b90600052602060002090601f0160209004810192826200019f5760008555620001ea565b82601f10620001ba57805160ff1916838001178555620001ea565b82800160010185558215620001ea579182015b82811115620001ea578251825591602001919060010190620001cd565b50620001f89291506200021b565b5090565b604051806101e00160405280600f906020820280368337509192915050565b5b80821115620001f857600081556001016200021c565b634e487b7160e01b600052604160045260246000fd5b604080519081016001600160401b03811182821017156200026d576200026d62000232565b60405290565b604051606081016001600160401b03811182821017156200026d576200026d62000232565b6040516101e081016001600160401b03811182821017156200026d576200026d62000232565b600081830361024080821215620002d457600080fd5b620002de62000248565b845181526020610220601f1985011215620002f857600080fd5b6200030262000273565b935080860151845260408601518185015286607f8701126200032357600080fd5b6200032d62000298565b9286019280888511156200034057600080fd5b606088015b858110156200036e5780518015158114620003605760008081fd5b835291830191830162000345565b50604086015250810192909252509392505050565b8060005b600f811015620003aa578151151584526020938401939091019060010162000387565b50505050565b6001600160a01b038316815281516020808301919091528083015180516040808501919091529181015160608401520151610260820190620003f6608084018262000383565b509392505050565b600082198211156200042057634e487b7160e01b600052601160045260246000fd5b500190565b81516001600160a01b0316815260208083015190820152604080830151610240830191620004569084018262000383565b50606083015161022083015292915050565b600181811c908216806200047d57607f821691505b602082108114156200049f57634e487b7160e01b600052602260045260246000fd5b50919050565b61140b80620004b56000396000f3fe6080604052600436106100795760003560e01c8063a209ad4e1161004b578063a209ad4e146100e1578063ab53f2c6146100f4578063c638d2f614610117578063f0da69461461012a57005b80631e93b0f1146100825780632c10a159146100a65780637eea518c146100b957806383230757146100cc57005b3661008057005b005b34801561008e57600080fd5b506003545b6040519081526020015b60405180910390f35b6100806100b4366004610f3d565b61013d565b6100806100c7366004610f3d565b61031a565b3480156100d857600080fd5b50600154610093565b6100806100ef366004610f3d565b610498565b34801561010057600080fd5b5061010961065a565b60405161009d929190610f60565b610080610125366004610fbd565b6106f7565b610080610138366004610fd0565b610899565b61014d600160005414600a610bb7565b6101678135158061016057506001548235145b600b610bb7565b60008080556002805461017990610fe3565b80601f01602080910402602001604051908101604052809291908181526020018280546101a590610fe3565b80156101f25780601f106101c7576101008083540402835291602001916101f2565b820191906000526020600020905b8154815290600101906020018083116101d557829003601f168201915b505050505080602001905181019061020a91906110f8565b9050610214610d16565b61022582606001514310600c610bb7565b7f400d21ea4e4a5e28b4ae5f0f476c201fc8036473fcf7c8cd252f38698020b4f1338460405161025692919061114d565b60405180910390a161026f826020015134146008610bb7565b602082015161027f90600261119b565b808252602083015161029e919061029690806111ba565b146009610bb7565b602080820180516001905280516000920182905280516040908101929092529083018051825160600152519051608001526102d7610d35565b825181516001600160a01b039091169052805133602091820152825182516040015282810151818301805191909152514391015261031481610bdc565b50505050565b61032a600160005414600e610bb7565b6103448135158061033d57506001548235145b600f610bb7565b60008080556002805461035690610fe3565b80601f016020809104026020016040519081016040528092919081815260200182805461038290610fe3565b80156103cf5780601f106103a4576101008083540402835291602001916103cf565b820191906000526020600020905b8154815290600101906020018083116103b257829003601f168201915b50505050508060200190518101906103e791906110f8565b90506103fb81606001514310156010610bb7565b7f919263be6d51bec670ce110fb6a7df03fe323e3de4dade5355bccc6a4b06d950338360405161042c92919061114d565b60405180910390a16104403415600d610bb7565b805160208201516040516001600160a01b039092169181156108fc0291906000818181858888f1935050505015801561047d573d6000803e3d6000fd5b506000808055600181905561049490600290610d65565b5050565b6104a86005600054146013610bb7565b6104c2813515806104bb57506001548235145b6014610bb7565b6000808055600280546104d490610fe3565b80601f016020809104026020016040519081016040528092919081815260200182805461050090610fe3565b801561054d5780601f106105225761010080835404028352916020019161054d565b820191906000526020600020905b81548152906001019060200180831161053057829003601f168201915b505050505080602001905181019061056591906111d2565b6040805133815284356020808301919091528501358183015290519192507f117ff0fc7909f539043dcba1a015e3c49852b86bcb1c87a6cfa653f771ccbdc0919081900360600190a16105ba34156011610bb7565b80516105d2906001600160a01b031633146012610bb7565b60408051606080820183526000808352602080840182815284860183815287516001600160a01b0390811680885289850151821684528989015183526006909555436001558751938401949094529051909216948101949094525190830152906080015b60405160208183030381529060405260029080519060200190610314929190610d9f565b60006060600054600280805461066f90610fe3565b80601f016020809104026020016040519081016040528092919081815260200182805461069b90610fe3565b80156106e85780601f106106bd576101008083540402835291602001916106e8565b820191906000526020600020905b8154815290600101906020018083116106cb57829003601f168201915b50505050509050915091509091565b6107076006600054146017610bb7565b6107218135158061071a57506001548235145b6018610bb7565b60008080556002805461073390610fe3565b80601f016020809104026020016040519081016040528092919081815260200182805461075f90610fe3565b80156107ac5780601f10610781576101008083540402835291602001916107ac565b820191906000526020600020905b81548152906001019060200180831161078f57829003601f168201915b50505050508060200190518101906107c491906111d2565b90507f43b239477be401ba593596e5ff54c41e6599db81cbb29caafecf1b59f66f523d33836040516107f7929190611269565b60405180910390a161080b34156015610bb7565b6020810151610826906001600160a01b031633146016610bb7565b61082e610e23565b81516001600160a01b039081168252602080840151909116908201526040808301518183015280516101e081810183529091850190600f908390839080828437600092018290525060608501939093525050600790554360015560405161063690829060200161129e565b6108a9600760005414601b610bb7565b6108c3813515806108bc57506001548235145b601c610bb7565b6000808055600280546108d590610fe3565b80601f016020809104026020016040519081016040528092919081815260200182805461090190610fe3565b801561094e5780601f106109235761010080835404028352916020019161094e565b820191906000526020600020905b81548152906001019060200180831161093157829003601f168201915b50505050508060200190518101906109669190611300565b9050610970610e5d565b7f062f3d4964039ab26eda89e34f94f56da4c9a6e68a1d2e0d07a043f1a062f80433846040516109a192919061135a565b60405180910390a16109b534156019610bb7565b81516109cd906001600160a01b03163314601a610bb7565b6000602082018190525b600f811015610a3a57826060015181600f81106109f6576109f6611387565b6020020151151560408301819052610a12578160200151610a23565b60018260200151610a2391906111ba565b602083015280610a328161139d565b9150506109d7565b50602081015181526000608082018190525b600f811015610abc576020840181600f8110610a6a57610a6a611387565b602002016020810190610a7d91906113b8565b151560a08301819052610a94578160800151610aa5565b60018260800151610aa591906111ba565b608083015280610ab48161139d565b915050610a4c565b5060808101516060820152610ad961020084016101e085016113b8565b610aec5760608201516101c00151610aef565b60015b610afa576001610afd565b60005b60c082018051911515909152606082015181516020908101919091528251915160409081019290925281516101e08181019093529190850190600f908390839080828437600092019190915250505060c08201805160609081019290925290830151905160800152610b6d610d35565b825181516001600160a01b039182169052602080850151835192169181019190915260408085015183519091015260c0830151818301805191909152514391015261031481610bdc565b816104945760405163100960cb60e01b81526004810182905260240160405180910390fd5b6020810151515115610c72576040805160608082018352600080835260208084018281528486018381528751516001600160a01b0390811680885289518501518216845289518901518352600590955543600155875180850195909552915190911683870152518284015284518083039093018352608090910190935280519192610c6d9260029290910190610d9f565b505050565b602081015151606001516101c00151610ca657602081015151608001516101c00151610c9f576001610ca9565b6000610ca9565b60015b610cb857805160200151610cbc565b8051515b6001600160a01b03166108fc8260000151604001519081150290604051600060405180830381858888f19350505050158015610cfc573d6000803e3d6000fd5b5060008080556001819055610d1390600290610d65565b50565b604051806040016040528060008152602001610d30610e9a565b905290565b6040805160a081018252600091810182815260608201839052608082019290925290815260208101610d30610ed1565b508054610d7190610fe3565b6000825580601f10610d81575050565b601f016020900490600052602060002090810190610d139190610ef1565b828054610dab90610fe3565b90600052602060002090601f016020900481019282610dcd5760008555610e13565b82601f10610de657805160ff1916838001178555610e13565b82800160010185558215610e13579182015b82811115610e13578251825591602001919060010190610df8565b50610e1f929150610ef1565b5090565b604051806080016040528060006001600160a01b0316815260200160006001600160a01b0316815260200160008152602001610d30610f06565b6040518060e0016040528060008152602001600081526020016000151581526020016000815260200160008152602001600015158152602001610d305b6040518060a001604052806000151581526020016000815260200160008152602001610ec4610f06565b8152602001610d30610f06565b6040518060400160405280610ee4610e9a565b8152602001600081525090565b5b80821115610e1f5760008155600101610ef2565b604051806101e00160405280600f906020820280368337509192915050565b600060408284031215610f3757600080fd5b50919050565b600060408284031215610f4f57600080fd5b610f598383610f25565b9392505050565b82815260006020604081840152835180604085015260005b81811015610f9457858101830151858201606001528201610f78565b81811115610fa6576000606083870101525b50601f01601f191692909201606001949350505050565b60006102208284031215610f3757600080fd5b60006102008284031215610f3757600080fd5b600181811c90821680610ff757607f821691505b60208210811415610f3757634e487b7160e01b600052602260045260246000fd5b634e487b7160e01b600052604160045260246000fd5b6040516080810167ffffffffffffffff8111828210171561105157611051611018565b60405290565b80516001600160a01b038116811461106e57600080fd5b919050565b8015158114610d1357600080fd5b600082601f83011261109257600080fd5b6040516101e080820182811067ffffffffffffffff821117156110b7576110b7611018565b604052830181858211156110ca57600080fd5b845b828110156110ed5780516110df81611073565b8252602091820191016110cc565b509195945050505050565b6000610240828403121561110b57600080fd5b61111361102e565b61111c83611057565b8152602083015160208201526111358460408501611081565b60408201526102209290920151606083015250919050565b6001600160a01b03831681528135602080830191909152606082019083013561117581611073565b8015156040840152509392505050565b634e487b7160e01b600052601160045260246000fd5b60008160001904831182151516156111b5576111b5611185565b500290565b600082198211156111cd576111cd611185565b500190565b6000606082840312156111e457600080fd5b6040516060810181811067ffffffffffffffff8211171561120757611207611018565b60405261121383611057565b815261122160208401611057565b6020820152604083015160408201528091505092915050565b8060005b600f81101561031457813561125281611073565b15158452602093840193919091019060010161123e565b60006102408201905060018060a01b03841682528235602083015260208301356040830152610f59606083016040850161123a565b81516001600160a01b03908116825260208084015190911681830152604080840151908301526060808401516102408401929091840160005b600f8110156112f65783511515825292820192908201906001016112d7565b5050505092915050565b6000610240828403121561131357600080fd5b61131b61102e565b61132483611057565b815261133260208401611057565b60208201526040830151604082015261134e8460608501611081565b60608201529392505050565b6001600160a01b03831681528135602080830191909152610220820190610f59906040840190850161123a565b634e487b7160e01b600052603260045260246000fd5b60006000198214156113b1576113b1611185565b5060010190565b6000602082840312156113ca57600080fd5b8135610f598161107356fea26469706673582212209a5e7527a695fa9db5d7dc5373bcd05022a7667c3a6a681d560e8e2c3b76676764736f6c634300080c0033`,
+  Bytecode: `0x6080604052604051620018c0380380620018c08339810160408190526200002691620002be565b60008080554360035560408051602081018252918252517f2edb4cb1a68a508b300bbe382e71d681db6fc54cd68b1672ef4edca2513b8e74906200006e9033908590620003b0565b60405180910390a16020820151516200008b903414600762000115565b60208083015101516200009f9043620003fe565b8152620000ab6200013f565b3381526020808401805151828401525160409081015181840152835160608401526001600081905543905551620000e59183910162000425565b604051602081830303815290604052600290805190602001906200010b9291906200016d565b50505050620004a5565b816200013b5760405163100960cb60e01b81526004810182905260240160405180910390fd5b5050565b604080516080810182526000808252602082015290810162000160620001fc565b8152602001600081525090565b8280546200017b9062000468565b90600052602060002090601f0160209004810192826200019f5760008555620001ea565b82601f10620001ba57805160ff1916838001178555620001ea565b82800160010185558215620001ea579182015b82811115620001ea578251825591602001919060010190620001cd565b50620001f89291506200021b565b5090565b604051806101e00160405280600f906020820280368337509192915050565b5b80821115620001f857600081556001016200021c565b634e487b7160e01b600052604160045260246000fd5b604080519081016001600160401b03811182821017156200026d576200026d62000232565b60405290565b604051606081016001600160401b03811182821017156200026d576200026d62000232565b6040516101e081016001600160401b03811182821017156200026d576200026d62000232565b600081830361024080821215620002d457600080fd5b620002de62000248565b845181526020610220601f1985011215620002f857600080fd5b6200030262000273565b935080860151845260408601518185015286607f8701126200032357600080fd5b6200032d62000298565b9286019280888511156200034057600080fd5b606088015b858110156200036e5780518015158114620003605760008081fd5b835291830191830162000345565b50604086015250810192909252509392505050565b8060005b600f811015620003aa578151151584526020938401939091019060010162000387565b50505050565b6001600160a01b038316815281516020808301919091528083015180516040808501919091529181015160608401520151610260820190620003f6608084018262000383565b509392505050565b600082198211156200042057634e487b7160e01b600052601160045260246000fd5b500190565b81516001600160a01b0316815260208083015190820152604080830151610240830191620004569084018262000383565b50606083015161022083015292915050565b600181811c908216806200047d57607f821691505b602082108114156200049f57634e487b7160e01b600052602260045260246000fd5b50919050565b61140b80620004b56000396000f3fe6080604052600436106100795760003560e01c8063a209ad4e1161004b578063a209ad4e146100e1578063ab53f2c6146100f4578063c638d2f614610117578063f0da69461461012a57005b80631e93b0f1146100825780632c10a159146100a65780637eea518c146100b957806383230757146100cc57005b3661008057005b005b34801561008e57600080fd5b506003545b6040519081526020015b60405180910390f35b6100806100b4366004610f3d565b61013d565b6100806100c7366004610f3d565b61031a565b3480156100d857600080fd5b50600154610093565b6100806100ef366004610f3d565b610498565b34801561010057600080fd5b5061010961065a565b60405161009d929190610f60565b610080610125366004610fbd565b6106f7565b610080610138366004610fd0565b610899565b61014d600160005414600a610bb7565b6101678135158061016057506001548235145b600b610bb7565b60008080556002805461017990610fe3565b80601f01602080910402602001604051908101604052809291908181526020018280546101a590610fe3565b80156101f25780601f106101c7576101008083540402835291602001916101f2565b820191906000526020600020905b8154815290600101906020018083116101d557829003601f168201915b505050505080602001905181019061020a91906110f8565b9050610214610d16565b61022582606001514310600c610bb7565b7f400d21ea4e4a5e28b4ae5f0f476c201fc8036473fcf7c8cd252f38698020b4f1338460405161025692919061114d565b60405180910390a161026f826020015134146008610bb7565b602082015161027f90600261119b565b808252602083015161029e919061029690806111ba565b146009610bb7565b602080820180516001905280516000920182905280516040908101929092529083018051825160600152519051608001526102d7610d35565b825181516001600160a01b039091169052805133602091820152825182516040015282810151818301805191909152514391015261031481610bdc565b50505050565b61032a600160005414600e610bb7565b6103448135158061033d57506001548235145b600f610bb7565b60008080556002805461035690610fe3565b80601f016020809104026020016040519081016040528092919081815260200182805461038290610fe3565b80156103cf5780601f106103a4576101008083540402835291602001916103cf565b820191906000526020600020905b8154815290600101906020018083116103b257829003601f168201915b50505050508060200190518101906103e791906110f8565b90506103fb81606001514310156010610bb7565b7f919263be6d51bec670ce110fb6a7df03fe323e3de4dade5355bccc6a4b06d950338360405161042c92919061114d565b60405180910390a16104403415600d610bb7565b805160208201516040516001600160a01b039092169181156108fc0291906000818181858888f1935050505015801561047d573d6000803e3d6000fd5b506000808055600181905561049490600290610d65565b5050565b6104a86005600054146013610bb7565b6104c2813515806104bb57506001548235145b6014610bb7565b6000808055600280546104d490610fe3565b80601f016020809104026020016040519081016040528092919081815260200182805461050090610fe3565b801561054d5780601f106105225761010080835404028352916020019161054d565b820191906000526020600020905b81548152906001019060200180831161053057829003601f168201915b505050505080602001905181019061056591906111d2565b6040805133815284356020808301919091528501358183015290519192507f117ff0fc7909f539043dcba1a015e3c49852b86bcb1c87a6cfa653f771ccbdc0919081900360600190a16105ba34156011610bb7565b80516105d2906001600160a01b031633146012610bb7565b60408051606080820183526000808352602080840182815284860183815287516001600160a01b0390811680885289850151821684528989015183526006909555436001558751938401949094529051909216948101949094525190830152906080015b60405160208183030381529060405260029080519060200190610314929190610d9f565b60006060600054600280805461066f90610fe3565b80601f016020809104026020016040519081016040528092919081815260200182805461069b90610fe3565b80156106e85780601f106106bd576101008083540402835291602001916106e8565b820191906000526020600020905b8154815290600101906020018083116106cb57829003601f168201915b50505050509050915091509091565b6107076006600054146017610bb7565b6107218135158061071a57506001548235145b6018610bb7565b60008080556002805461073390610fe3565b80601f016020809104026020016040519081016040528092919081815260200182805461075f90610fe3565b80156107ac5780601f10610781576101008083540402835291602001916107ac565b820191906000526020600020905b81548152906001019060200180831161078f57829003601f168201915b50505050508060200190518101906107c491906111d2565b90507f43b239477be401ba593596e5ff54c41e6599db81cbb29caafecf1b59f66f523d33836040516107f7929190611269565b60405180910390a161080b34156015610bb7565b6020810151610826906001600160a01b031633146016610bb7565b61082e610e23565b81516001600160a01b039081168252602080840151909116908201526040808301518183015280516101e081810183529091850190600f908390839080828437600092018290525060608501939093525050600790554360015560405161063690829060200161129e565b6108a9600760005414601b610bb7565b6108c3813515806108bc57506001548235145b601c610bb7565b6000808055600280546108d590610fe3565b80601f016020809104026020016040519081016040528092919081815260200182805461090190610fe3565b801561094e5780601f106109235761010080835404028352916020019161094e565b820191906000526020600020905b81548152906001019060200180831161093157829003601f168201915b50505050508060200190518101906109669190611300565b9050610970610e5d565b7f062f3d4964039ab26eda89e34f94f56da4c9a6e68a1d2e0d07a043f1a062f80433846040516109a192919061135a565b60405180910390a16109b534156019610bb7565b81516109cd906001600160a01b03163314601a610bb7565b6000602082018190525b600f811015610a3a57826060015181600f81106109f6576109f6611387565b6020020151151560408301819052610a12578160200151610a23565b60018260200151610a2391906111ba565b602083015280610a328161139d565b9150506109d7565b50602081015181526000608082018190525b600f811015610abc576020840181600f8110610a6a57610a6a611387565b602002016020810190610a7d91906113b8565b151560a08301819052610a94578160800151610aa5565b60018260800151610aa591906111ba565b608083015280610ab48161139d565b915050610a4c565b5060808101516060820152610ad961020084016101e085016113b8565b610aec5760608201516101c00151610aef565b60015b610afa576001610afd565b60005b60c082018051911515909152606082015181516020908101919091528251915160409081019290925281516101e08181019093529190850190600f908390839080828437600092019190915250505060c08201805160609081019290925290830151905160800152610b6d610d35565b825181516001600160a01b039182169052602080850151835192169181019190915260408085015183519091015260c0830151818301805191909152514391015261031481610bdc565b816104945760405163100960cb60e01b81526004810182905260240160405180910390fd5b6020810151515115610c72576040805160608082018352600080835260208084018281528486018381528751516001600160a01b0390811680885289518501518216845289518901518352600590955543600155875180850195909552915190911683870152518284015284518083039093018352608090910190935280519192610c6d9260029290910190610d9f565b505050565b602081015151606001516101c00151610ca657602081015151608001516101c00151610c9f576001610ca9565b6000610ca9565b60015b610cb857805160200151610cbc565b8051515b6001600160a01b03166108fc8260000151604001519081150290604051600060405180830381858888f19350505050158015610cfc573d6000803e3d6000fd5b5060008080556001819055610d1390600290610d65565b50565b604051806040016040528060008152602001610d30610e9a565b905290565b6040805160a081018252600091810182815260608201839052608082019290925290815260208101610d30610ed1565b508054610d7190610fe3565b6000825580601f10610d81575050565b601f016020900490600052602060002090810190610d139190610ef1565b828054610dab90610fe3565b90600052602060002090601f016020900481019282610dcd5760008555610e13565b82601f10610de657805160ff1916838001178555610e13565b82800160010185558215610e13579182015b82811115610e13578251825591602001919060010190610df8565b50610e1f929150610ef1565b5090565b604051806080016040528060006001600160a01b0316815260200160006001600160a01b0316815260200160008152602001610d30610f06565b6040518060e0016040528060008152602001600081526020016000151581526020016000815260200160008152602001600015158152602001610d305b6040518060a001604052806000151581526020016000815260200160008152602001610ec4610f06565b8152602001610d30610f06565b6040518060400160405280610ee4610e9a565b8152602001600081525090565b5b80821115610e1f5760008155600101610ef2565b604051806101e00160405280600f906020820280368337509192915050565b600060408284031215610f3757600080fd5b50919050565b600060408284031215610f4f57600080fd5b610f598383610f25565b9392505050565b82815260006020604081840152835180604085015260005b81811015610f9457858101830151858201606001528201610f78565b81811115610fa6576000606083870101525b50601f01601f191692909201606001949350505050565b60006102208284031215610f3757600080fd5b60006102008284031215610f3757600080fd5b600181811c90821680610ff757607f821691505b60208210811415610f3757634e487b7160e01b600052602260045260246000fd5b634e487b7160e01b600052604160045260246000fd5b6040516080810167ffffffffffffffff8111828210171561105157611051611018565b60405290565b80516001600160a01b038116811461106e57600080fd5b919050565b8015158114610d1357600080fd5b600082601f83011261109257600080fd5b6040516101e080820182811067ffffffffffffffff821117156110b7576110b7611018565b604052830181858211156110ca57600080fd5b845b828110156110ed5780516110df81611073565b8252602091820191016110cc565b509195945050505050565b6000610240828403121561110b57600080fd5b61111361102e565b61111c83611057565b8152602083015160208201526111358460408501611081565b60408201526102209290920151606083015250919050565b6001600160a01b03831681528135602080830191909152606082019083013561117581611073565b8015156040840152509392505050565b634e487b7160e01b600052601160045260246000fd5b60008160001904831182151516156111b5576111b5611185565b500290565b600082198211156111cd576111cd611185565b500190565b6000606082840312156111e457600080fd5b6040516060810181811067ffffffffffffffff8211171561120757611207611018565b60405261121383611057565b815261122160208401611057565b6020820152604083015160408201528091505092915050565b8060005b600f81101561031457813561125281611073565b15158452602093840193919091019060010161123e565b60006102408201905060018060a01b03841682528235602083015260208301356040830152610f59606083016040850161123a565b81516001600160a01b03908116825260208084015190911681830152604080840151908301526060808401516102408401929091840160005b600f8110156112f65783511515825292820192908201906001016112d7565b5050505092915050565b6000610240828403121561131357600080fd5b61131b61102e565b61132483611057565b815261133260208401611057565b60208201526040830151604082015261134e8460608501611081565b60608201529392505050565b6001600160a01b03831681528135602080830191909152610220820190610f59906040840190850161123a565b634e487b7160e01b600052603260045260246000fd5b60006000198214156113b1576113b1611185565b5060010190565b6000602082840312156113ca57600080fd5b8135610f598161107356fea2646970667358221220f8fa844da55445f67415acd45b1d695e9bf814ba2cc5fdb2cd68fc9a6d52b49a64736f6c634300080c0033`,
   BytecodeLen: 6336,
   Which: `oD`,
   version: 7,
@@ -1239,37 +1239,37 @@ const _ETH = {
   };
 export const _stateSourceMap = {
   1: {
-    at: './index.rsh:53:11:after expr stmt semicolon',
+    at: './index.rsh:51:11:after expr stmt semicolon',
     fs: [],
     msg: null,
     who: 'Module'
     },
   2: {
     at: 'reach standard library:191:11:after expr stmt semicolon',
-    fs: ['at ./index.rsh:69:12:application call to "closeTo" (defined at: reach standard library:187:8:function exp)'],
+    fs: ['at ./index.rsh:66:12:application call to "closeTo" (defined at: reach standard library:187:8:function exp)'],
     msg: null,
     who: 'Module'
     },
   4: {
-    at: './index.rsh:130:11:after expr stmt semicolon',
+    at: './index.rsh:126:11:after expr stmt semicolon',
     fs: [],
     msg: null,
     who: 'Module'
     },
   5: {
-    at: './index.rsh:77:13:after expr stmt semicolon',
+    at: './index.rsh:74:13:after expr stmt semicolon',
     fs: [],
     msg: null,
     who: 'Module'
     },
   6: {
-    at: './index.rsh:84:13:after expr stmt semicolon',
+    at: './index.rsh:81:13:after expr stmt semicolon',
     fs: [],
     msg: null,
     who: 'Module'
     },
   7: {
-    at: './index.rsh:97:13:after expr stmt semicolon',
+    at: './index.rsh:96:13:after expr stmt semicolon',
     fs: [],
     msg: null,
     who: 'Module'

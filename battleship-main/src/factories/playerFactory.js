@@ -1,6 +1,8 @@
 import Gameboard from "./gameboardFactory";
 import * as backend from "../build/index.main.mjs";
-import { loadStdlib } from "@reach-sh/stdlib";
+import {
+  loadStdlib
+} from "@reach-sh/stdlib";
 const callbackFn = () => {
   let fn;
   const setFn = (fxn) => {
@@ -23,7 +25,6 @@ class Player {
   constructor(name, acc) {
     this.name = name;
     this.ctc = null;
-    this.ships = [];
     this.Ship = [
       false,
       false,
@@ -73,7 +74,7 @@ class Player {
       alert("All systems go! go! go!, Fireeeeee");
     }
     const hand = await new Promise((resolveHandP) => {
-      if ((this.name).toLowerCase() === "computer"){
+      if ((this.name).toLowerCase() === "computer") {
         Waiter.callFn(true);
       }
       this.resolveHandP = resolveHandP;
@@ -90,7 +91,7 @@ class Player {
   playHand(hand) {
     console.log("hand,", hand);
     Fxn.callFn(hand);
-    if(this.name.toLowerCase() === "computer"){
+    if (this.name.toLowerCase() === "computer") {
       alert("Enemy has fired, we are sendig the intel to HQ\n Please do not shoot until instructed to")
     }
   }
@@ -110,7 +111,11 @@ export class Deployer extends Player {
     this.ctc = this.acc.contract(backend);
     // !TODO publish this variable and make it accessible to all
     this.wager = reach.parseCurrency(this.wager); // UInt
-    this.deadline = { ETH: 10, ALGO: 100, CFX: 1000 }[reach.connector]; // UInt
+    this.deadline = {
+      ETH: 10,
+      ALGO: 100,
+      CFX: 1000
+    } [reach.connector]; // UInt
     backend.Alice(this.ctc, this);
     alert("Contract is being deployed... Please wait")
     const ctcInfoStr = JSON.stringify(await this.ctc.getInfo(), null, 2);
@@ -126,7 +131,7 @@ export class Attacher extends Player {
     const wager = reach.formatCurrency(wagerAtomic, 4);
     console.log("Accepted Wager, ", wager);
   }
-  
+
   async attach(ctcInfoStr) {
     this.ctc = this.acc.contract(backend, JSON.parse(ctcInfoStr));
     backend.Bob(this.ctc, this);

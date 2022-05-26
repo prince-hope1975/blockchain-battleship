@@ -1,19 +1,10 @@
-import React, {
-  useState,
-  useContext,
-  useEffect,
-  useRef,
-  useCallback,
-} from "react";
+import React, { useState,useContext, useEffect,useRef,useCallback,} from "react";
 import Init from "./Init";
 import GameSetup from "./GameSetup";
 import GameStart from "./GameStart";
 import WinnerScreen from "./WinnerScreen";
 import { store } from "../../GameController";
-import {
-  MainWindow,
-  VolumeContainer,
-} from "../styled_components/gameControllerStyles";
+import { MainWindow,VolumeContainer,} from "../styled_components/gameControllerStyles";
 import music from "../../assets/sounds/music.mp3";
 import backgroundSound from "../../assets/sounds/background_sound.mp3";
 import fireShot from "../../assets/sounds/fire_shot.mp3";
@@ -22,11 +13,13 @@ import shotMiss from "../../assets/sounds/shot_miss.mp3";
 import VolumeOn from "../icons/VolumeOn";
 import VolumeOff from "../icons/VolumeOff";
 
-import secret from "../../secret"
+import secret from "../../secret";
 
+/***
+ * REACH
+ */
 import { loadStdlib } from "@reach-sh/stdlib";
-
-import { ALGO_MyAlgoConnect as MyAlgoConnect } from '@reach-sh/stdlib'
+import { ALGO_MyAlgoConnect as MyAlgoConnect } from "@reach-sh/stdlib";
 const reach = loadStdlib((process.env.REACH_CONNECTOR_MODE = "ALGO-live"));
 
 reach.setWalletFallback(
@@ -64,9 +57,7 @@ export default function GameWindow() {
   useEffect(() => {
     (async () => {
       try {
-        const newAccount = await reach.newAccountFromMnemonic(
-          secret
-        );
+        const newAccount = await reach.newAccountFromMnemonic(secret);
         console.log("newAccount", newAccount);
 
         dispatch({ type: "SET_ACC", payload: newAccount });

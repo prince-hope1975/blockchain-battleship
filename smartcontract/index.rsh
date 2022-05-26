@@ -6,12 +6,6 @@
 // once all a users box has been hit stop the game and declare the winner
 
 
-const countShips = (ships) => Array.count(ships, (item) => {
-  return item == true;
-});
-
-const winner = (AliceShips, BobShips) => AliceShips[14] ? true : BobShips[14] ? false : true
-
 
 const common = {
   getBoard: Fun([], Array(UInt, 100)),
@@ -40,6 +34,11 @@ export const main = Reach.App(() => {
       interact.informTimeout();
     });
   };
+  const countShips = (ships) => Array.count(ships, (item) => {
+    return item == true;
+  });
+  const winner = (AliceShips, BobShips) => AliceShips[14] ? true : BobShips[14] ? false : true
+
 
   Alice.only(() => {
     const board = declassify(interact.getBoard());
@@ -58,7 +57,6 @@ export const main = Reach.App(() => {
 
   /** 
    * Make sure neither parties have acces to each other board
-   * 
    */
   unknowable(Bob, Alice(board));
   unknowable(Alice, Bob(board));

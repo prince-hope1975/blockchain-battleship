@@ -1,15 +1,18 @@
 import { loadStdlib } from "@reach-sh/stdlib";
 import * as backend from "./build/index.main.mjs";
-import { Data, arrData } from "./trial.js";
+
+export const Data = [
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+];
+export const playerChoice = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 7, 8, 8, 8, 8, 8, 8, 8
+];
 
 const stdlib = loadStdlib();
 const startingBalance = stdlib.parseCurrency(100);
-const interact = { ...stdlib.hasRandom };
-
-let currentPlayer;
-
-const fmt = (x) => stdlib.formatCurrency(x, 4);
-
 const arr = Data
 
 console.log(arr);
@@ -55,41 +58,27 @@ const Player = () => {
         break;
       }
     }
-    interact.Ship = Ship
   };
   const getShip = () => {
-    
     return Ship;
   };
-  
   const informTimeout = () => {
     console.log(`someone observed a timeout`);
   };
   const seeOutcome = () => {
     console.log(`someone saw outcome `);
   };
-  const sendToFront = (value) => {
-    value.forEach((bigNumber) => {
-      console.log(stdlib.bigNumberToNumber(bigNumber));
-    });
-  };
-  const print =(data)=>{
-    console.log("val",data)
-  }
   const getHand = ()=>{
     i++
-    return  arrData[i%10]
+    return  playerChoice[i%10]
   }
-  const setPlayer =(bool)=>{currentPlayer = bool}
   return {
     Ship,
     getBoard,
     updateShip,
     informTimeout,
     seeOutcome,
-    sendToFront,
     getShip,
-    print, 
     getHand
   };
 };
@@ -111,9 +100,7 @@ await Promise.all([
         }
       } else {
           await stdlib.wait(1);
-        console.log(`Bob accepts the wager of
-        .`);
-        //  ${fmt(interact.amt)}
+        console.log(`Bob accepts the wager .`);
       }
     },
   }),
