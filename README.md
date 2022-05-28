@@ -9,7 +9,7 @@
 
 </div>
 
-## Pleasae make sure ro interact with the game here  😱  <a href="https://battle-ship2.netlify.app/">BattleShip Game </a>
+## Please make sure to interact with the game here  😱  <a href="https://battle-ship2.netlify.app/"> Battleship Game </a>
 ---
 
 <p align="center"> This Project is a battleship implementation on the blockchain
@@ -18,13 +18,11 @@
 
 ## 📝 Table of Contents
 
-- [## Pleasae make sure ro interact with the game here  😱  <a href="https://battle-ship2.netlify.app/">BattleShip Game </a>](#-pleasae-make-sure-ro-interact-with-the-game-here----battleship-game-)
 - [📝 Table of Contents](#-table-of-contents)
 - [🏁 Getting Started <a name = "getting_started"></a>](#-getting-started-)
 <!-- - [💡 Idea / Solution <a name = "idea"></a>](#-idea--solution-) -->
-<!-- - [⛓️ Dependencies / Limitations <a name = "limitations"></a>](#️-dependencies--limitations-) -->
-<!-- - [🚀 Future Scope <a name = "future_scope"></a>](#-future-scope-)
-- [## Pleasae make sure ro interact with the game here  😱  <a href="https://battle-ship2.netlify.app/">BattleShip Game </a>](#-pleasae-make-sure-ro-interact-with-the-game-here----battleship-game-)
+- [⛓️ Dependencies / Limitations <a name = "limitations"></a>](#️-dependencies--limitations-)
+- [🚀 Future Scope <a name = "future_scope"></a>](#-future-scope-)
 - [📝 Table of Contents](#-table-of-contents)
 - [🏁 Getting Started <a name = "getting_started"></a>](#-getting-started-)
 
@@ -32,84 +30,51 @@
 
 Having a fair implementation of Battleship on the blockchain is fairly difficult, and that's exactly what is implemented on this repo using reach.
 
-<!-- - IDEAL: This section is used to describe the desired or “to be” state of the process or product. At large, this section
-  should illustrate what the expected environment would look like once the solution is implemented.
-- REALITY: This section is used to describe the current or “as is” state of the process or product.
-- CONSEQUENCES: This section is used to describe the impacts on the business if the problem is not fixed or improved upon.
-  This includes costs associated with loss of money, time, productivity, competitive advantage, and so forth. -->
-
-<!-- Following this format will result in a workable document that can be used to understand the problem and elicit
-requirements that will lead to a winning solution. -->
-
-<!-- ## 💡 Idea / Solution <a name = "idea"></a>
-
-This section is used to describe potential solutions.
-
-Once the ideal, reality, and consequences sections have been
-completed, and understood, it becomes easier to provide a solution for solving the problem. -->
-
-<!-- ## ⛓️ Dependencies / Limitations <a name = "limitations"></a>
+## ⛓️ Dependencies / Limitations <a name = "limitations"></a>
 
 - React
 - Reach
 - Reach stdlib
-- Provide the reasons why each limitation could not be overcome using the method(s) chosen to acquire.
-- Assess the impact of each limitation in relation to the overall findings and conclusions of your project, and if
-  appropriate, describe how these limitations could point to the need for further research. -->
 
-<!-- ## 🚀 Future Scope <a name = "future_scope"></a>
 
-Write about what you could not develop during the course of the Hackathon; and about what your project can achieve
-in the future. -->
+## 🚀 Future Scope <a name = "future_scope"></a>
+The hack provided me with the knowledge to build complex blockchain applications, but there were a couple of things that couldn't be implemented, which will be implemented in the future, such as;
+- Using APIs instead of participants to enable a more fluid user experience.
+
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
 To get this project running on your local environment for development `docker` and `docker compose ` are needed
 
-<!-- ### Prerequisites
-
-What things you need to install the software and how to install them.
-
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running.
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
+### Prerequisites
+- reach 
+- reach-sh/stdlib
+- Node js
 
 ## 🎈 Usage <a name="usage"></a>
 
-Add notes about how to use the system.
+- Navigate to the home page.
+- Either connect your wallet or use the default account to play
+- Insert name
+- Choose spots to place ships
+- Once ships have been placed wait for the contract to communicate with the blockchain
+- You will be prompted to guess the position of the opponent's ship
+- Keep on playing till all ships are destroyed
 
 ## ⛏️ Built With <a name = "tech_stack"></a>
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+- [REACT](https://reactjs.org/) - Front End framework
+- [Reach](https://docs.reach.sh) - Blockchain
+
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
+- [@Prince-hope](https://github.com/prince-hope1975?) - Idea & Initial work
 
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors)
-who participated in this project.
 
 ## 🎉 Acknowledgments <a name = "acknowledgments"></a>
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- References -->
+- Hat tip to Alex Younger for his code used 
+- Thanks to reach-lang and the helpful staff (Estefania, JP Miller, Candace, etc) for giving me this opportunity to participate in the hack
+- Thank you to my mentor Joy Ayitey for helping me through the challenges
+
