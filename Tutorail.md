@@ -1,8 +1,9 @@
 # Tutorial: BattleShip
 
-In this workshop, we'll go through Prince's Bounty Hack submission, the Battleship game; where two players have to try to guess the positions of each ship on a Gameboard. The is one stage in which the game runs indefinitely till a player's ships are destroyed. The program checks if all ships have been hit, then it computes the winner based on the total number of ships hit.
+In this Tutorail, we'll walk through a simple decentralized application, the Battleship game; where two players have to try to guess the positions of each ship on a Gameboard. The is one stage in which the game runs indefinitely till a player's ships are destroyed. The program checks if all ships have been hit, then it computes the winner based on the total number of ships hit.
 
-This workshop assumes that you've completed the rock, paper, scissors tutorial.
+This tutorail assumes you have completed the Rock, Paper, Scissors tutorail [here](https://docs.reach.sh/tut/rps/#tut) 
+
 
 We assume that you’ll go through this workshop in a directory named ~/reach/workshop-battleship:
 
