@@ -273,7 +273,7 @@ Moving forward to the main application logic, we have a loop that will run until
 112.  }
 
 ```
-**NOTE: REACH VARIABLES ARE IMMUTABLE BY DEFAULT AND CAN NOT BE CHANGED EXCEPT AT THE BEGINNING OF A LOOP. THIS IS DONE TO ENHANCE PERFORMANCE AND FOR GAS OPTIMIZATIONS**
+**NOTE: REACH VARIABLES ARE IMMUTABLE BY DEFAULT AND CAN NOT BE CHANGED EXCEPT AT THE BEGINNING OF A LOOP. THIS IS DONE TO ENHANCE PERFORMANCE AND FOR GAS OPTIMIZATIONS**  
 Moving on in our application implementation...
 - Line 62 declares a Tuple named `statement` that stores different variables used thorough out the execution of the code.
 - Line 63 declares the `invariant` block of the loop. This is a condition that will remain true regardless of the steps taken in the loop. As for our use, we declare that the balance in the contract will always be equal to twice the wager amount.
