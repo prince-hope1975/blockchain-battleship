@@ -711,10 +711,10 @@ export default function GameWindow() {
 }
 
 ```
-The frontend's structure is fairly complex so you'll have to properly go through the repository to get the pieces together.
+The front-end structure is fairly complex so you'll have to properly go through the repository to get the pieces together.
 
 ## Discussion
-Congrats for finishing this workshop. You implemented the gold rush game that runs on the blockchain yourself.
+Congrats on finishing this workshop. You implemented the battleship game that runs on the blockchain yourself.
 
 If you found this workshop rewarding please let us know on [the Discord Community](https://discord.gg/AZsgcXu).
 

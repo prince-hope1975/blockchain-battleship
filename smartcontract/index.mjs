@@ -13,9 +13,6 @@ export const playerChoice = [
 
 const stdlib = loadStdlib();
 const startingBalance = stdlib.parseCurrency(100);
-const arr = Data
-
-console.log(arr);
 
 const accAlice = await stdlib.newTestAccount(startingBalance);
 const accBob = await stdlib.newTestAccount(startingBalance);
@@ -28,29 +25,12 @@ const beforeBob = await getBalance(accBob);
 const ctcAlice = accAlice.contract(backend);
 const ctcBob = accBob.contract(backend, ctcAlice.getInfo());
 const Player = () => {
-  const interact = { ...stdlib.hasRandom };
-  let Ship = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ];
+  let Ship = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,];
+  let i =0
   const getBoard = () => {
     console.log(`Bob asked to give the preimage.`);
-    return arr;
+    return Data;
   };
-  let i =0
   const updateShip = () => {
     for (let singleShip in Ship) {
       if (Ship[singleShip] === false) {
@@ -70,7 +50,7 @@ const Player = () => {
   };
   const getHand = ()=>{
     i++
-    return  playerChoice[i%10]
+    return  playerChoice[(i-1)%10]
   }
   return {
     Ship,

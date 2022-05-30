@@ -133,6 +133,7 @@ Now we should implement the code logic for our `index.rsh` and `index.mjs`.
 8.   getHand: Fun([], UInt),
 9. };
 ```
+
 The `common` object contains all the functions and methods that both participants will inherit and use. 
 - `getBoard` is a function that gets an array of 100 UInts that contains the positions of the ships, which are represented by "1".
 - `Ship` is a variable that is used to store an array of booleans that will represent the state of all the ships that have been hit. "False"  if the ship has not been hit and "true" if has been hit.
@@ -141,6 +142,11 @@ The `common` object contains all the functions and methods that both participant
 - `informTimeout` is used to notify the participants of a timeout; and tell them they're taking too long to respond.
 - `getShip` gets the updated `Ship` variable from the front.
 - `getHand` this is then used to guess the position of a ship on another player's game board.
+
+We're going to represent the cost of a wager with UInt (Unsigned Integer). The deployer will set this value after deploying the contract. We'll also represent the duration of a deadline with UInt.
+
+Attacher has a function that lets them view and accepts the wager set by the deployer. They'll have the option of refusing it and thus terminating the contract.
+
 
 From here we define the player's interact functions and create helper functions.
 ```js
@@ -267,7 +273,54 @@ Moving forward to the main application logic, we have a loop that will run until
 112.  }
 
 ```
+**NOTE: REACH VARIABLES ARE IMMUTABLE BY DEFAULT AND CAN NOT BE CHANGED EXCEPT AT THE BEGINNING OF A LOOP. THIS IS DONE TO ENHANCE PERFORMANCE AND FOR GAS OPTIMIZATIONS**
+Moving on in our application implementation...
+- Line 62 declares a Tuple named `statement` that stores different variables used thorough out the execution of the code.
+- Line 63 declares the `invariant` block of the loop. This is a condition that will remain true regardless of the steps taken in the loop. As for our use, we declare that the balance in the contract will always be equal to twice the wager amount.
+- Line 64 begins the execution of the while loop and ends in line 112.
+- Line 65 destructures the `statement` variable and assigns individual variables to each parameter.
+- Lines 69 to 72 get Alice's hand and publish it so Bob can use it to compare with his board.
+- Lines 78 to 87; Bob gets his hand from the front end as well as doing a comparison to check if Alice's hand was correct. If it's correct Bob updates his `Ship` variable. After all the steps Bob publishes both the updated value of the ship and his hand, that is `BobShips` and `BobHand`.
+- Lines 91 to 100; Alice also does a comparison with her board and Bob's hand. After all the checks and comparisons, Alice publishes the ship varible to be used elsewhere in the applciation.
+- Lines 102 and 103 use the function declared earlier on line 30, to count and store the number of ships that have been hit on each participant board.
+- Lines 105 to 110 show how we redeclare the statement variable and input new values.
 
+That is all the logic needed in the loop, for the game to run.
+
+Our application needs a way to determine the winner and pay the total funds to the winner. We will implement that below.
+```js
+114.  const [isTrue, aliceShipCount, BobShipsCount, AliceShips, BobShips] = statement
+115.
+116.  const outcome = winner(AliceShips, BobShips);
+117.  transfer(2 * wager).to(outcome ? Alice : Bob);
+118.  commit();
+119.
+120.  each([Alice, Bob], () => {
+121.    interact.seeOutcome(outcome);
+122.  });
+123. });
+```
+- Line  114 destructures all the values from the `statement` variable.
+- On line 116 we determine the outcome of the game and return stores a "true" if Alice wins and a "false" if Bob wins  
+-line 117 transfers the total amount in the contract to the winner and then performs a commit.
+- Lines 120 t0 123; each participant is notified of the outcome of the game.
+
+And that's it with our blockchain implementation. 
+
+Running...
+``` bash
+  ../reach compile
+```
+we should see an output on the terminal like this
+
+```bash
+Verifying knowledge assertions
+Verifying for generic connector
+  Verifying when ALL participants are honest
+  Verifying when NO participants are honest
+Checked 43 theorems; No failures!
+
+```
 Bringing the application together; will look something like this...
 
 ```js
@@ -396,216 +449,10 @@ Bringing the application together; will look something like this...
 123. });
 ```
 
-What information are they going to discover and use in the program?
-
-Waht are the steps to be taken in the course of the program?
-
-What funds change ownership during the application and how?
-
-```
-
-**Question Answers!**
-```
-
-Our application involves 2 roles: One deployer and one attacher.
-
-Deployer knows about the price of the wager they want to set for the game, and the deadline for deployer to connect.
-
-Attacher will be informed about the price of the wager set by the deployer.
-
-Both attacher and deployer pay wager to the contract.
-
-Deployer and attacher place the ships on their gameboard.
-
-Deplopyer and Attacher take turns guessing the position of the ships of the other
-
-At the end of the game, the winner gets paid all the wagers, or in the case of a draw, both players get refunded.
-
-````
-
-## Data Definition
-For the next step, we are going to define the data type equivalents of the values used in our answers from the previous section. Also, in this step we'll be deciding what functions our participants will have.
-
-* What functions/values does Deployer need to deploy the game, play and observe outcomes?
-
-* What functions/values does attacher need to attach, play and observe outcomes?
-
-* What functions do both participants have in common?
-
-It's time to see our answers!
-
-First we'll define a common object that contains the functions both participants have in common.
-
-```js
-const common = {
-  getBoard: Fun([], Array(UInt, 100)),
-  Ship: Array(Bool, 15),
-  informTimeout: Fun([], Null),
-  seeOutcome: Fun([Bool], Null),
-  updateShip: Fun([], Null),
-  getShip: Fun([], Array(Bool, 15)),
-  getHand: Fun([], UInt),
-  setPlayer: Fun([Bool], Null),
-};
-````
-
-Then we'll define each individual participant's unique function, but also pass the generic ones to both.
-
-```js
-export const main = Reach.App(() => {
-
-  const Alice = Participant("Alice", {
-    ...common,
-    wager: UInt,
-    deadline: UInt,
-  });
-  const Bob = Participant("Bob", {
-    ...common,
-    acceptWager: Fun([UInt], Null),
-  });
-```
-
-We're going to represent the cost of a wager with UInt (Unsigned Integer). Deployer will set this value after deploying the contract. We'll also represent the duration of a deadline with UInt.
-
-Attacher has a function that lets them view and accept the wager set by the deployer. They'll have the option of refusing it and thus terminating the contract.
-
-For the actual gameplay, both participants have 7 functions.
-
-- `getBoard` for getting the gameboard information of each player, and it specifies the positions of the ships,
-- `Ship` which is an array that contains booleans that signify the number of ships each player is allowed to have,
-- `informTimeout` for letting them know when there is a timeout,
-- `seeOutcome` for telling them the overall winner of all three stages,d
-- `updateShip` for updateing the the ships object to show how many ships have been hit,
-- `getShip` getting the updated ship value from the front-end,
-- `getHand` for getting each players guess.
-
-## Communication Construction
-
-Now we can design the structure and flow of communication of our application.
-
-```
-1. Deployer sets wager, deploys contract and pays wager.
-2. Attacher sees, accepts and pays wager.
-3. Attacher and Deployer both get their board information.
-4. Program checks for dishonest actors
-5. In multiple iterations:
-  i.  Deployer plays hand and the program checks if it correlates with a ship position on the Attacher's board
-  ii. Attacher confirms if Deployer's hand correlates and plays hand
-  iii. Program checks if Attacher's hand correlates with ship position on Deployer's board
-  iv. Program checks if all ships on any participant's board has been hit.
-6. Program checks winner.
-5. Program pays winner both wagers or refunds both players in the case of a draw.
-```
-
-The phrase "In multiple iterations" indicates a loop in the game that runs an unknown amount of times, until a conditionis met. With this information we can implement the logic for our contract.
-Main logic of our contract should now look like:
-
-```js
-    const informTimeout = () => {
-    each([Alice, Bob], () => {
-      interact.informTimeout();
-    });
-  };
-  const countShips = (ships) => Array.count(ships, (item) => {
-    return item == true;
-  });
-  const winner = (AliceShips, BobShips) => AliceShips[14] ? true : BobShips[14] ? false : true
-
-
-  Alice.only(() => {
-    const board = declassify(interact.getBoard());
-    const wager = declassify(interact.wager);
-    const deadline = declassify(interact.deadline);
-    const shipAlice = declassify(interact.Ship);
-  });
-
-  Alice.publish(wager, deadline, shipAlice).pay(wager);
-  commit();
-
-  Bob.only(() => {
-    const board = declassify(interact.getBoard());
-    interact.acceptWager(wager);
-  });
-
-  /**
-   * Make sure neither parties have acces to each other board
-   */
-  unknowable(Bob, Alice(board));
-  unknowable(Alice, Bob(board));
-
-
-  Bob.pay(wager).timeout(relativeTime(deadline), () =>
-    closeTo(Alice, informTimeout)
-  );
-  require(balance() == 2 * wager);
-
-  var statement = [true, 0, 0, shipAlice, shipAlice];
-  invariant(balance() == 2 * wager);
-  while (statement[0]) {
-    const [isTrue, aliceShipCount, BobShipsCount, A, B] = statement
-    commit();
-
-    // Get Alice's Hand
-    Alice.only(() => {
-      const handAlice = declassify(interact.getHand());
-    });
-    Alice.publish(handAlice);
-    commit();
-
-    // Bob Plays his Hand
-    // Compare with bobs Board and check if it's been hit
-
-    Bob.only(() => {
-      const bobHand = declassify(interact.getHand());
-      const BobVal = board[handAlice % 100] == 1;
-      if (BobVal) {
-        interact.updateShip();
-      }
-      const BobShips = declassify(interact.getShip());
-      check(countShips(BobShips) <= BobShipsCount + 1, "Dishonest front")
-    });
-    Bob.publish(bobHand, BobShips);
-    commit();
-
-    // Alice Checks if the she has been hit and then publishes the result
-    Alice.only(() => {
-      const val = board[bobHand % 100] == 1;
-      if (val) {
-        interact.updateShip();
-      }
-      const AliceShips = declassify(interact.getShip());
-      check(countShips(AliceShips) <= aliceShipCount + 1, "Dishonest front")
-
-    });
-    Alice.publish(AliceShips);
-
-    const countBob = countShips(BobShips)
-    const countAlice = countShips(AliceShips);
-
-    statement = [
-      AliceShips[14] || BobShips[14] ? false : true,
-      countAlice,
-      countBob,
-      AliceShips, BobShips
-    ]
-    continue;
-  }
-
-  const [isTrue, aliceShipCount, BobShipsCount, AliceShips, BobShips] = statement
-
-  const outcome = winner(AliceShips, BobShips);
-  transfer(2 * wager).to(outcome ? Alice : Bob);
-  commit();
-
-  each([Alice, Bob], () => {
-    interact.seeOutcome(outcome);
-  });
-});
-```
 
 ## Assertion Insertion
 
-Due to simplicity of the program, there's no need for assertions in the code.
+Due to the simplicity of the program, there's no need for assertions in the code.
 
 ## Possible Additions
 
@@ -637,27 +484,9 @@ On the Data array "0"s represent spaces on the board without ships and the "1"s 
 
 The player choice array contains all the moves the test suite will guess on the board.
 
-Now we run the tests below:
-
 ```js
-import { loadStdlib } from "@reach-sh/stdlib";
-import * as backend from "./build/index.main.mjs";
-
-export const Data = [
-  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-];
-export const playerChoice = [
-  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 7, 8, 8, 8, 8, 8, 8, 8,
-];
-
 const stdlib = loadStdlib();
 const startingBalance = stdlib.parseCurrency(100);
-const arr = Data;
-
-console.log(arr);
 
 const accAlice = await stdlib.newTestAccount(startingBalance);
 const accBob = await stdlib.newTestAccount(startingBalance);
@@ -669,30 +498,25 @@ const beforeBob = await getBalance(accBob);
 
 const ctcAlice = accAlice.contract(backend);
 const ctcBob = accBob.contract(backend, ctcAlice.getInfo());
+```
+The above code block does the following
+- We load the reach standard library on line 14
+- On line 15 we create a starting balance for each player
+- On lines 17 and 18 we create two test accounts and fund them programmatically
+- On line 20 we create a `getBalance` helper function we use later in the application.
+- On lines 23 and 24 we get the balances of the accounts before they interact with the contract we wrote in the `index.rsh`.
+- On line 25 participant  `Alice   deploys the contract and Bob attaches to that contract on line 26
+
+Now let's define the equivalent of the `common` variable in our `index.rsh` file. We name it `Player` instead and it will mirror the `common` variable.
+The Player function will return an object and will be spread to both participant's interact objects.
+```js
 const Player = () => {
-  const interact = { ...stdlib.hasRandom };
-  let Ship = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ];
+  let Ship = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,];
+  let i =0
   const getBoard = () => {
     console.log(`Bob asked to give the preimage.`);
-    return arr;
+    return Data;
   };
-  let i = 0;
   const updateShip = () => {
     for (let singleShip in Ship) {
       if (Ship[singleShip] === false) {
@@ -710,10 +534,10 @@ const Player = () => {
   const seeOutcome = () => {
     console.log(`someone saw outcome `);
   };
-  const getHand = () => {
-    i++;
-    return playerChoice[i % 10];
-  };
+  const getHand = ()=>{
+    i++
+    return  playerChoice[(i-1)%10]
+  }
   return {
     Ship,
     getBoard,
@@ -721,10 +545,22 @@ const Player = () => {
     informTimeout,
     seeOutcome,
     getShip,
-    getHand,
+    getHand
   };
 };
+```
+In the code block above, we have a factory function that returns all the needed parameters which we defined during the implementation of the reach code.
+we have
+- `Ship` variable that will be updated when given the orders from the contract.
+- `getBoard` function that returns the player board with the position where ships are placed.
+- `updateShip` which updates the `Ship` variable by changing a single value from false to true.
+- `informTimeout` which just logs a warning to the console.
+- `seeOutcome` that prints the outcome of the game to the console.
+- `getShip` which is used in the contract to determine the current state of the `Ship` variable.
+- `getHand` that gets the current hand of the player.
 
+We start interacting with the contract and fill up the participant's interface with the mirror of the smart contract equivalent, and wrap it in a "promise.all" statement to make sure they both run and resolve simultaneously.
+```js
 await Promise.all([
   backend.Alice(ctcAlice, {
     ...Player(),
@@ -741,26 +577,126 @@ await Promise.all([
           await stdlib.wait(1);
         }
       } else {
-        await stdlib.wait(1);
+          await stdlib.wait(1);
         console.log(`Bob accepts the wager .`);
       }
     },
   }),
 ]);
-
-const afterAlice = await getBalance(accAlice);
-const afterBob = await getBalance(accBob);
-
-console.log(`Alice went from ${beforeAlice} to ${afterAlice}.`);
-console.log(`Bob went from ${beforeBob} to ${afterBob}.`);
 ```
 
-## Interaction Introduction
+The final applcaition should look like this:
 
-Now we have a complete contract backend and test suite, now we can write the frontend. You can use any frontend library of your choice. In our case, we have chosen to use React.
+```js
+1. import { loadStdlib } from "@reach-sh/stdlib";
+2. import * as backend from "./build/index.main.mjs";
+3. 
+4. export const Data = [
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+];
+5. export const playerChoice = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 7, 8, 8, 8, 8, 8, 8, 8
+];
+6. 
+7. const stdlib = loadStdlib();
+8. const startingBalance = stdlib.parseCurrency(100);
+9. 
+10. const accAlice = await stdlib.newTestAccount(startingBalance);
+11. const accBob = await stdlib.newTestAccount(startingBalance);
+12. 
+13. const getBalance = async (who) =>
+14.   stdlib.formatCurrency(await stdlib.balanceOf(who), 4);
+15. const beforeAlice = await getBalance(accAlice);
+16. const beforeBob = await getBalance(accBob);
+17. 
+18. const ctcAlice = accAlice.contract(backend);
+19. const ctcBob = accBob.contract(backend, ctcAlice.getInfo());
+20. const Player = () => {
+21.   let Ship = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,];
+22.   let i =0
+23.   const getBoard = () => {
+24.     console.log(`Bob asked to give the preimage.`);
+25.     return Data;
+26.   };
+27.   const updateShip = () => {
+28.     for (let singleShip in Ship) {
+29.       if (Ship[singleShip] === false) {
+30.         Ship[singleShip] = true;
+31.         break;
+32.       }
+33.     }
+34.   };
+35.   const getShip = () => {
+36.     return Ship;
+37.   };
+38.   const informTimeout = () => {
+39.     console.log(`someone observed a timeout`);
+40.   };
+41.   const seeOutcome = () => {
+42.     console.log(`someone saw outcome `);
+43.   };
+44.   const getHand = ()=>{
+45.     i++
+46.     return  playerChoice[(i-1)%10]
+47.   }
+48.   return {
+49.     Ship,
+50.     getBoard,
+51.     updateShip,
+52.     informTimeout,
+53.     seeOutcome,
+54.     getShip,
+55.     getHand
+56.   };
+57. };
+58. 
+59. await Promise.all([
+60.   backend.Alice(ctcAlice, {
+61.     ...Player(),
+62.     amt: stdlib.parseCurrency(25),
+63.     deadline: 10,
+64.     wager: stdlib.parseCurrency(10),
+65.   }),
+66.   backend.Bob(ctcBob, {
+67.     ...Player(),
+68.     acceptWager: async () => {
+69.       if (Math.random() >= 1) {
+70.         for (let i = 0; i < 10; i++) {
+71.           console.log(`  Bob takes his sweet time...`);
+72.           await stdlib.wait(1);
+73.         }
+74.       } else {
+75.           await stdlib.wait(1);
+76.         console.log(`Bob accepts the wager .`);
+77.       }
+78.     },
+79.   }),
+80. ]);
+81. 
+82. const afterAlice = await getBalance(accAlice);
+83. const afterBob = await getBalance(accBob);
+84.
+85. console.log(`Alice went from ${beforeAlice} to ${afterAlice}.`);
+86. console.log(`Bob went from ${beforeBob} to ${afterBob}.`);
+87. //
+
+```
+Now run 
+```
+../reach run
+```
+That is it. You should have an implementation of battleship and a test file running on your local machine.
+## Further Learning
+If you want to implement a more complex front-end Application using a front-end library (REACT, Vue, Angular, etc). Continue to get an idea of how reach can be used when building fullstack blockchain applications.
+
 
 NOTE: To fully utilize this section you need to have the repo locally [link](https://github.com/prince-hope1975/battleship-main)
 
+
+Now we have a complete contract backend and test suite, now we can write the frontend. You can use any frontend library of your choice. In our case, we have chosen to use React.  
 In the React App navigate to `battleship-main/src/factories/playerFactory.js`. We are defining the logic for the participants
 
 ```js
@@ -1109,11 +1045,11 @@ export default function GameWindow() {
 }
 ```
 
-The frontend's structure is fairly complex so you'll have to properly go through the repository to get the pieces together.
+The front-end structure is fairly complex so you'll have to properly go through the repository to get the pieces together.
 
 ## Discussion
 
-Congrats for finishing this tutorial. You implemented the gold rush game that runs on the blockchain yourself.
+Congrats on finishing this tutorial. You implemented the battleship game that runs on the blockchain yourself.
 
 If you found this tutorial rewarding please let us know on [the Discord Community](https://discord.gg/AZsgcXu).
 
