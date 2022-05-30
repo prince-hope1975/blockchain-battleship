@@ -1,12 +1,5 @@
 "reach 0.1";
 
-// Get the board from each user
-// Iterate through each users turn and try and let them try to hit the other user
-// if it hit give them another chance to hit
-// once all a users box has been hit stop the game and declare the winner
-
-
-
 const common = {
   getBoard: Fun([], Array(UInt, 100)),
   Ship: Array(Bool, 15),
@@ -65,7 +58,6 @@ export const main = Reach.App(() => {
   Bob.pay(wager).timeout(relativeTime(deadline), () =>
     closeTo(Alice, informTimeout)
   );
-  require(balance() == 2 * wager);
 
   var statement = [true, 0, 0, shipAlice, shipAlice];
   invariant(balance() == 2 * wager);
