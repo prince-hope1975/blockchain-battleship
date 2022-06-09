@@ -139,7 +139,7 @@ The `common` object contains all the functions and methods that both participant
 - `Ship` is a variable that is used to store an array of booleans that will represent the state of all the ships that have been hit. "False"  if the ship has not been hit and "true" if has been hit.
 - `updateShip` updates the `Ship` and it is only called if a ship has been hit on the board.
 - `seeOutcome` is used to display the winner of the game.
-- `informTimeout` is used to notify the participants of a timeout; and tell them they're taking too long to respond.
+- `informTimeout` is used to notify the participants a timeout occured, and tell them they're taking too long to respond.
 - `getShip` gets the updated `Ship` variable from the front.
 - `getHand` this is then used to guess the position of a ship on another player's game board.
 
@@ -469,13 +469,13 @@ touch index.mjs
 We define our test data to use for simulating user input and data
 
 ```js
-export const Data = [
+4. export const Data = [
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ];
-export const playerChoice = [
+5. export const playerChoice = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 7, 8, 8, 8, 8, 8, 8, 8,
 ];
 ```
@@ -485,19 +485,19 @@ On the Data array "0"s represent spaces on the board without ships and the "1"s 
 The player choice array contains all the moves the test suite will guess on the board.
 
 ```js
-const stdlib = loadStdlib();
-const startingBalance = stdlib.parseCurrency(100);
-
-const accAlice = await stdlib.newTestAccount(startingBalance);
-const accBob = await stdlib.newTestAccount(startingBalance);
-
-const getBalance = async (who) =>
-  stdlib.formatCurrency(await stdlib.balanceOf(who), 4);
-const beforeAlice = await getBalance(accAlice);
-const beforeBob = await getBalance(accBob);
-
-const ctcAlice = accAlice.contract(backend);
-const ctcBob = accBob.contract(backend, ctcAlice.getInfo());
+9. const stdlib = loadStdlib();
+10. const startingBalance = stdlib.parseCurrency(100);
+11.
+12. const accAlice = await stdlib.newTestAccount(startingBalance);
+13. const accBob = await stdlib.newTestAccount(startingBalance);
+14.
+15. const getBalance = async (who) =>
+16.  stdlib.formatCurrency(await stdlib.balanceOf(who), 4);
+17. const beforeAlice = await getBalance(accAlice);
+18. const beforeBob = await getBalance(accBob);
+19.
+20. const ctcAlice = accAlice.contract(backend);
+21. const ctcBob = accBob.contract(backend, ctcAlice.getInfo());
 ```
 The above code block does the following
 - We load the reach standard library on line 14
@@ -510,44 +510,44 @@ The above code block does the following
 Now let's define the equivalent of the `common` variable in our `index.rsh` file. We name it `Player` instead and it will mirror the `common` variable.
 The Player function will return an object and will be spread to both participant's interact objects.
 ```js
-const Player = () => {
-  let Ship = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,];
-  let i =0
-  const getBoard = () => {
-    console.log(`Bob asked to give the preimage.`);
-    return Data;
-  };
-  const updateShip = () => {
-    for (let singleShip in Ship) {
-      if (Ship[singleShip] === false) {
-        Ship[singleShip] = true;
-        break;
-      }
-    }
-  };
-  const getShip = () => {
-    return Ship;
-  };
-  const informTimeout = () => {
-    console.log(`someone observed a timeout`);
-  };
-  const seeOutcome = () => {
-    console.log(`someone saw outcome `);
-  };
-  const getHand = ()=>{
-    i++
-    return  playerChoice[(i-1)%10]
-  }
-  return {
-    Ship,
-    getBoard,
-    updateShip,
-    informTimeout,
-    seeOutcome,
-    getShip,
-    getHand
-  };
-};
+1. const Player = () => {
+2.  let Ship = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,];
+3.  let i =0
+4.  const getBoard = () => {
+5.    console.log(`Bob asked to give the preimage.`);
+6.    return Data;
+7.  };
+8.  const updateShip = () => {
+9.    for (let singleShip in Ship) {
+10.      if (Ship[singleShip] === false) {
+11.        Ship[singleShip] = true;
+12.        break;
+13.      }
+14.    }
+15.  };
+16.  const getShip = () => {
+17.    return Ship;
+18.  };
+19.  const informTimeout = () => {
+20.    console.log(`someone observed a timeout`);
+21.  };
+22.  const seeOutcome = () => {
+23.    console.log(`someone saw outcome `);
+24.  };
+25.  const getHand = ()=>{
+26.    i++
+27.    return  playerChoice[(i-1)%10]
+28.  }
+29.  return {
+30.    Ship,
+31.    getBoard,
+32.    updateShip,
+33.    informTimeout,
+34.    seeOutcome,
+35.    getShip,
+36.    getHand
+37.  };
+38. };
 ```
 In the code block above, we have a factory function that returns all the needed parameters which we defined during the implementation of the reach code.
 we have
@@ -561,28 +561,28 @@ we have
 
 We start interacting with the contract and fill up the participant's interface with the mirror of the smart contract equivalent, and wrap it in a "promise.all" statement to make sure they both run and resolve simultaneously.
 ```js
-await Promise.all([
-  backend.Alice(ctcAlice, {
-    ...Player(),
-    amt: stdlib.parseCurrency(25),
-    deadline: 10,
-    wager: stdlib.parseCurrency(10),
-  }),
-  backend.Bob(ctcBob, {
-    ...Player(),
-    acceptWager: async () => {
-      if (Math.random() >= 1) {
-        for (let i = 0; i < 10; i++) {
-          console.log(`  Bob takes his sweet time...`);
-          await stdlib.wait(1);
-        }
-      } else {
-          await stdlib.wait(1);
-        console.log(`Bob accepts the wager .`);
-      }
-    },
-  }),
-]);
+61. await Promise.all([
+62.  backend.Alice(ctcAlice, {
+63.    ...Player(),
+64.    amt: stdlib.parseCurrency(25),
+65.    deadline: 10,
+66.    wager: stdlib.parseCurrency(10),
+67.  }),
+68.  backend.Bob(ctcBob, {
+69.    ...Player(),
+70.    acceptWager: async () => {
+71.      if (Math.random() >= 1) {
+72.        for (let i = 0; i < 10; i++) {
+73.          console.log(`  Bob takes his sweet time...`);
+74.          await stdlib.wait(1);
+75.        }
+76.      } else {
+77.          await stdlib.wait(1);
+78.        console.log(`Bob accepts the wager .`);
+79.      }
+80.    },
+81.  }),
+82. ]);
 ```
 
 The final applcaition should look like this:
@@ -700,349 +700,349 @@ Now we have a complete contract backend and test suite, now we can write the fro
 In the React App navigate to `battleship-main/src/factories/playerFactory.js`. We are defining the logic for the participants
 
 ```js
-import Gameboard from "./gameboardFactory";
-import * as backend from "../build/index.main.mjs";
-import { loadStdlib } from "@reach-sh/stdlib";
-/*
-Helper Funtions
-*/
-const callbackFn = () => {
-  let fn;
-  const setFn = (fxn) => {
-    fn = fxn;
-    console.log("fxn", fxn);
-  };
-  const callFn = (val) => {
-    fn(val);
-  };
-  return {
-    setFn,
-    callFn,
-  };
-};
-const Fxn = callbackFn();
-const Waiter = callbackFn();
-
-const reach = loadStdlib((process.env.REACH_CONNECTOR_MODE = "ALGO"));
-/**
- * Participant classes
- */
-class Player {
-  constructor(name, acc) {
-    this.name = name;
-    this.ctc = null;
-    this.Ship = [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-    ];
-    this.acc = acc;
-    this.gameBoard = new Gameboard();
-  }
-  updateShip() {
-    for (let singleShip in this.Ship) {
-      if (this.Ship[singleShip] === false) {
-        this.Ship[singleShip] = true;
-        break;
-      }
-    }
-  }
-  getBoard() {
-    return this.gameBoard.board.map((item) => {
-      if (item.hasShip !== false) return 1;
-      return 0;
-    });
-  }
-  getShip() {
-    return this.Ship;
-  }
-  informTimeOut() {
-    console.log("You observed a timeout");
-  }
-  setPlayer(Bool) {
-    this.currentPlayer = Bool;
-  }
-  async getHand() {
-    console.log(`Please Play your hand ${this.name}`);
-    if (this.name.toLowerCase() !== "computer") {
-      alert("All systems go! go! go!, Fireeeeee");
-    }
-    const hand = await new Promise((resolveHandP) => {
-      if (this.name.toLowerCase() === "computer") {
-        Waiter.callFn(true);
-      }
-      this.resolveHandP = resolveHandP;
-      Fxn.setFn(resolveHandP);
-    });
-    return hand;
-  }
-  async waitTillHandGot() {
-    const hand = await new Promise((resolveHandP) => {
-      Waiter.setFn(resolveHandP);
-    });
-    return hand;
-  }
-  playHand(hand) {
-    console.log("hand,", hand);
-    Fxn.callFn(hand);
-    if (this.name.toLowerCase() === "computer") {
-      alert(
-        "Enemy has fired, we are sendig the intel to HQ\n Please do not shoot until instructed to"
-      );
-    }
-  }
-  fireShot(location, gameboard) {
-    if (gameboard.opponentBoard()[location] === "empty") {
-      gameboard.receiveShot(location);
-    }
-  }
-}
-
-/**
- * Deployer class which inherits from general player class
- * */
-export class Deployer extends Player {
-  setWager(wager) {
-    this.wager = wager;
-    console.log(this);
-  }
-  async deploy(reach) {
-    this.ctc = this.acc.contract(backend);
-    this.wager = reach.parseCurrency(this.wager); // UInt
-    this.deadline = {
-      ETH: 10,
-      ALGO: 100,
-      CFX: 1000,
-    }[reach.connector]; // UInt
-    backend.Alice(this.ctc, this);
-    alert("Contract is being deployed... Please wait");
-    const ctcInfoStr = JSON.stringify(await this.ctc.getInfo(), null, 2);
-    console.log("info", ctcInfoStr);
-    alert("Contract successfully deployed, Please wait for someone to attach");
-    this.ctcInfoStr = ctcInfoStr;
-  }
-}
-
-export class Attacher extends Player {
-  acceptWager(wagerAtomic) {
-    const wager = reach.formatCurrency(wagerAtomic, 4);
-    console.log("Accepted Wager, ", wager);
-  }
-
-  async attach(ctcInfoStr) {
-    this.ctc = this.acc.contract(backend, JSON.parse(ctcInfoStr));
-    backend.Bob(this.ctc, this);
-    await this.ctc.getInfo();
-    alert(
-      "Contract has been sucessfully attached to, Please wait till you are given orders to fire"
-    );
-  }
-}
-
-export default Player;
+1. import Gameboard from "./gameboardFactory";
+2. import * as backend from "../build/index.main.mjs";
+3. import { loadStdlib } from "@reach-sh/stdlib";
+4. /*
+5. Helper Funtions
+6. */
+7. const callbackFn = () => {
+8.   let fn;
+9.   const setFn = (fxn) => {
+10.     fn = fxn;
+11.     console.log("fxn", fxn);
+12.   };
+13.   const callFn = (val) => {
+14.     fn(val);
+15.   };
+16.   return {
+17.     setFn,
+18.     callFn,
+19.   };
+20. };
+21. const Fxn = callbackFn();
+22. const Waiter = callbackFn();
+23. 
+24. const reach = loadStdlib((process.env.REACH_CONNECTOR_MODE = "ALGO"));
+25. /**
+26.  * Participant classes
+27.  */
+28. class Player {
+29.   constructor(name, acc) {
+30.     this.name = name;
+31.     this.ctc = null;
+32.     this.Ship = [
+33.       false,
+34.       false,
+35.       false,
+36.       false,
+37.       false,
+38.       false,
+39.      false,
+40.      false,
+41.      false,
+42.      false,
+43.      false,
+44.      false,
+45.      false,
+46.      false,
+47.      false,
+48.    ];
+49.    this.acc = acc;
+50.    this.gameBoard = new Gameboard();
+51.  }
+52.  updateShip() {
+53.    for (let singleShip in this.Ship) {
+54.      if (this.Ship[singleShip] === false) {
+55.        this.Ship[singleShip] = true;
+56.        break;
+57.      }
+58.    }
+59.  }
+60.  getBoard() {
+61.    return this.gameBoard.board.map((item) => {
+62.      if (item.hasShip !== false) return 1;
+63.      return 0;
+64.    });
+65.  }
+66.  getShip() {
+67.    return this.Ship;
+68.  }
+69.  informTimeOut() {
+70.    console.log("You observed a timeout");
+71.  }
+72.  setPlayer(Bool) {
+73.    this.currentPlayer = Bool;
+74.  }
+75.  async getHand() {
+76.    console.log(`Please Play your hand ${this.name}`);
+77.    if (this.name.toLowerCase() !== "computer") {
+78.      alert("All systems go! go! go!, Fireeeeee");
+79.    }
+80.    const hand = await new Promise((resolveHandP) => {
+81.      if (this.name.toLowerCase() === "computer") {
+82.        Waiter.callFn(true);
+83.      }
+84.      this.resolveHandP = resolveHandP;
+85.      Fxn.setFn(resolveHandP);
+86.    });
+87.    return hand;
+88.  }
+89.  async waitTillHandGot() {
+90.    const hand = await new Promise((resolveHandP) => {
+91.      Waiter.setFn(resolveHandP);
+92.    });
+93.    return hand;
+94.  }
+95.  playHand(hand) {
+96.    console.log("hand,", hand);
+97.    Fxn.callFn(hand);
+98.    if (this.name.toLowerCase() === "computer") {
+99.      alert(
+100.        "Enemy has fired, we are sendig the intel to HQ\n Please do not shoot until instructed to"
+101.      );
+102.    }
+103.   }
+104.  fireShot(location, gameboard) {
+105.    if (gameboard.opponentBoard()[location] === "empty") {
+106.      gameboard.receiveShot(location);
+107.    }
+108.  }
+109. }
+110.
+111. /**
+112. * Deployer class which inherits from general player class
+113.  * */
+114. export class Deployer extends Player {
+115.  setWager(wager) {
+116.    this.wager = wager;
+117.    console.log(this);
+118.  }
+119.   async deploy(reach) {
+120.     this.ctc = this.acc.contract(backend);
+121.     this.wager = reach.parseCurrency(this.wager); // UInt
+122.     this.deadline = {
+123.       ETH: 10,
+124.       ALGO: 100,
+125.       CFX: 1000,
+126.     }[reach.connector]; // UInt
+127.     backend.Alice(this.ctc, this);
+128.     alert("Contract is being deployed... Please wait");
+129.     const ctcInfoStr = JSON.stringify(await this.ctc.getInfo(), null, 2);
+130.     console.log("info", ctcInfoStr);
+131.     alert("Contract successfully deployed, Please wait for someone to attach");
+132.     this.ctcInfoStr = ctcInfoStr;
+133.   }
+134. }
+135. 
+136. export class Attacher extends Player {
+137.   acceptWager(wagerAtomic) {
+138.     const wager = reach.formatCurrency(wagerAtomic, 4);
+139.     console.log("Accepted Wager, ", wager);
+140.   }
+141. 
+142.   async attach(ctcInfoStr) {
+143.     this.ctc = this.acc.contract(backend, JSON.parse(ctcInfoStr));
+144.     backend.Bob(this.ctc, this);
+145.     await this.ctc.getInfo();
+146.     alert(
+147.       "Contract has been sucessfully attached to, Please wait till you are given orders to fire"
+148.     );
+149.   }
+150. }
+151. 
+152. export default Player;
 ```
-
-We'll navigate to the `battleship-main/src/components/game_window/GameWindow.js` which houses the initial game logic
-
-```js
-import React, {
-  useState,
-  useContext,
-  useEffect,
-  useRef,
-  useCallback,
-} from "react";
-import Init from "./Init";
-import GameSetup from "./GameSetup";
-import GameStart from "./GameStart";
-import WinnerScreen from "./WinnerScreen";
-import { store } from "../../GameController";
-import {
-  MainWindow,
-  VolumeContainer,
-} from "../styled_components/gameControllerStyles";
-import music from "../../assets/sounds/music.mp3";
-import backgroundSound from "../../assets/sounds/background_sound.mp3";
-import fireShot from "../../assets/sounds/fire_shot.mp3";
-import shotHit from "../../assets/sounds/shot_hit.mp3";
-import shotMiss from "../../assets/sounds/shot_miss.mp3";
-import VolumeOn from "../icons/VolumeOn";
-import VolumeOff from "../icons/VolumeOff";
-
-import secret from "../../secret";
-
-/***
- * REACH
- */
-import { loadStdlib } from "@reach-sh/stdlib";
-import { ALGO_MyAlgoConnect as MyAlgoConnect } from "@reach-sh/stdlib";
-const reach = loadStdlib((process.env.REACH_CONNECTOR_MODE = "ALGO-live"));
-
-reach.setWalletFallback(
-  reach.walletFallback({
-    providerEnv: "TestNet",
-    MyAlgoConnect,
-  })
-);
-
-export default function GameWindow() {
-  const { state, dispatch } = useContext(store);
-  const { timeline, winner } = state;
-  const [dismount, setDismount] = useState(false);
-  const [volume, setVolume] = useState(true);
-
-  // pass to props to avoiding directly passing a setState function
-  const setVolumeProps = (value) => {
-    value
-      ? (musicPlayer.current.volume = 0.5)
-      : (musicPlayer.current.volume = 0);
-    setVolume(value);
-  };
-
-  const musicPlayer = useRef();
-  // I provide two sound players so sound effects can "overlap"
-  const soundPlayer = useRef();
-  const soundPlayer2 = useRef();
-
-  // cancel animation coming into this component
-  useEffect(() => {
-    setDismount(false);
-    console.log("hi");
-  }, [setDismount]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const newAccount = await reach.newAccountFromMnemonic(secret);
-        console.log("newAccount", newAccount);
-
-        dispatch({ type: "SET_ACC", payload: newAccount });
-        dispatch({ type: "SET_BOB", payload: newAccount });
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, []);
-
-  // to avoid passing a setState directly, pass this helper function
-  const setDismountProp = (state) => {
-    setDismount(state);
-  };
-
-  const playBgSound = useCallback(
-    (sound, customVolume) => {
-      if (volume) {
-        const newVol = customVolume || 0.5;
-        if (!musicPlayer.current.paused) musicPlayer.current.pause();
-        musicPlayer.current.src =
-          sound === "music"
-            ? music
-            : sound === "bgSound"
-            ? backgroundSound
-            : null;
-        musicPlayer.current.load();
-        musicPlayer.current.volume = newVol;
-        musicPlayer.current.play();
-      }
-    },
-    [volume]
-  );
-
-  const playSound = useCallback(
-    (sound, customVolume) => {
-      if (volume) {
-        const newVol = customVolume || 0.5;
-        let player = soundPlayer;
-        if (!soundPlayer.current.paused) {
-          player = soundPlayer2;
-        }
-        player.current.src =
-          sound === "fireShot"
-            ? fireShot
-            : sound === "shotMiss"
-            ? shotMiss
-            : sound === "shotHit"
-            ? shotHit
-            : null;
-        player.current.load();
-        player.current.volume = newVol;
-        player.current.play();
-      }
-    },
-    [volume]
-  );
-
-  const checkIfMusicPaused = () => {
-    return musicPlayer.current.paused;
-  };
-
-  const fadeOutMusic = () => {
-    const fadeOut = setInterval(() => {
-      if (musicPlayer.current.volume <= 0.04) {
-        musicPlayer.current.volume = 0;
-        clearInterval(fadeOut);
-      } else {
-        musicPlayer.current.volume = musicPlayer.current.volume - 0.03;
-      }
-    }, 30);
-  };
-
-  // conditionally render based on the app state "timeline"
-  const renderChild = (timeline) => {
-    return timeline === "init" ? (
-      <Init
-        playBgSound={playBgSound}
-        checkIfMusicPaused={checkIfMusicPaused}
-        dismount={dismount}
-        setDismount={setDismountProp}
-      />
-    ) : timeline === "setup" ? (
-      <GameSetup
-        dismount={dismount}
-        fadeOutMusic={fadeOutMusic}
-        setDismount={setDismountProp}
-      />
-    ) : winner ? (
-      <WinnerScreen playBgSound={playBgSound} />
-    ) : !winner ? (
-      <GameStart
-        playSound={playSound}
-        playBgSound={playBgSound}
-        setDismount={setDismount}
-      />
-    ) : null;
-  };
-
-  return (
-    <MainWindow>
-      <VolumeContainer timeline={timeline}>
-        {volume ? (
-          <VolumeOn setVolume={setVolumeProps} />
-        ) : (
-          <VolumeOff setVolume={setVolumeProps} />
-        )}
-      </VolumeContainer>
-      {renderChild(timeline)}
-      <>
-        <audio onEnded={() => musicPlayer.current.play()} ref={musicPlayer} />
-        <audio ref={soundPlayer} />
-        <audio ref={soundPlayer2} />
-      </>
-    </MainWindow>
-  );
-}
+ 
+ We'll navigate to the `battleship-main/src/components/game_window/GameWindow.js` which houses the initial game logic
+ 
+ ```js
+1.  import React, {
+2.   useState,
+3.   useContext,
+4.   useEffect,
+5.   useRef,
+6.   useCallback,
+7. } from "react";
+8. import Init from "./Init";
+9. import GameSetup from "./GameSetup";
+10. import GameStart from "./GameStart";
+11. import WinnerScreen from "./WinnerScreen";
+12. import { store } from "../../GameController";
+13. import {
+14.   MainWindow,
+15.   VolumeContainer,
+16. } from "../styled_components/gameControllerStyles";
+17. import music from "../../assets/sounds/music.mp3";
+18. import backgroundSound from "../../assets/sounds/background_sound.mp3";
+19. import fireShot from "../../assets/sounds/fire_shot.mp3";
+20. import shotHit from "../../assets/sounds/shot_hit.mp3";
+21. import shotMiss from "../../assets/sounds/shot_miss.mp3";
+22. import VolumeOn from "../icons/VolumeOn";
+23. import VolumeOff from "../icons/VolumeOff";
+24. 
+25. import secret from "../../secret";
+26. 
+27. /***
+28.  * REACH
+29.  */
+30. import { loadStdlib } from "@reach-sh/stdlib";
+31. import { ALGO_MyAlgoConnect as MyAlgoConnect } from "@reach-sh/stdlib";
+32. const reach = loadStdlib((process.env.REACH_CONNECTOR_MODE = "ALGO-live"));
+33. 
+34. reach.setWalletFallback(
+35.   reach.walletFallback({
+36.     providerEnv: "TestNet",
+37.     MyAlgoConnect,
+38.   })
+39. );
+40. 
+41. export default function GameWindow() {
+42.   const { state, dispatch } = useContext(store);
+43.   const { timeline, winner } = state;
+44.   const [dismount, setDismount] = useState(false);
+45.   const [volume, setVolume] = useState(true);
+46. 
+47.   // pass to props to avoiding directly passing a setState function
+48.   const setVolumeProps = (value) => {
+49.     value
+50.       ? (musicPlayer.current.volume = 0.5)
+51.       : (musicPlayer.current.volume = 0);
+52.     setVolume(value);
+53.   };
+54. 
+55.   const musicPlayer = useRef();
+56.   // I provide two sound players so sound effects can "overlap"
+57.   const soundPlayer = useRef();
+58.   const soundPlayer2 = useRef();
+59. 
+60.   // cancel animation coming into this component
+61.   useEffect(() => {
+62.     setDismount(false);
+63.     console.log("hi");
+64.   }, [setDismount]);
+65. 
+66.   useEffect(() => {
+67.     (async () => {
+68.       try {
+69.         const newAccount = await reach.newAccountFromMnemonic(secret);
+70.         console.log("newAccount", newAccount);
+71. 
+72.         dispatch({ type: "SET_ACC", payload: newAccount });
+73.         dispatch({ type: "SET_BOB", payload: newAccount });
+74.       } catch (error) {
+75.         console.error(error);
+76.       }
+77.     })();
+78.   }, []);
+79. 
+80.   // to avoid passing a setState directly, pass this helper function
+81.   const setDismountProp = (state) => {
+82.     setDismount(state);
+83.   };
+84. 
+85.   const playBgSound = useCallback(
+86.     (sound, customVolume) => {
+87.       if (volume) {
+88.         const newVol = customVolume || 0.5;
+89.         if (!musicPlayer.current.paused) musicPlayer.current.pause();
+90.         musicPlayer.current.src =
+91.           sound === "music"
+92.             ? music
+93.             : sound === "bgSound"
+94.             ? backgroundSound
+95.             : null;
+96.         musicPlayer.current.load();
+97.         musicPlayer.current.volume = newVol;
+98.         musicPlayer.current.play();
+99.       }
+100.     },
+101.    [volume]
+102.  );
+103.
+104.  const playSound = useCallback(
+105.    (sound, customVolume) => {
+106.      if (volume) {
+107.        const newVol = customVolume || 0.5;
+108.        let player = soundPlayer;
+109.        if (!soundPlayer.current.paused) {
+110.          player = soundPlayer2;
+111.        }
+112.        player.current.src =
+113.          sound === "fireShot"
+114.            ? fireShot
+115.            : sound === "shotMiss"
+116.            ? shotMiss
+117.            : sound === "shotHit"
+118.            ? shotHit
+119.            : null;
+120.        player.current.load();
+121.        player.current.volume = newVol;
+122.        player.current.play();
+123.      }
+124.    },
+125.    [volume]
+126.  );
+127.
+128.  const checkIfMusicPaused = () => {
+129.    return musicPlayer.current.paused;
+130.  };
+131.
+132.  const fadeOutMusic = () => {
+133.    const fadeOut = setInterval(() => {
+134.      if (musicPlayer.current.volume <= 0.04) {
+135.        musicPlayer.current.volume = 0;
+136.        clearInterval(fadeOut);
+137.      } else {
+138.        musicPlayer.current.volume = musicPlayer.current.volume - 0.03;
+139.      }
+140.    }, 30);
+141.  };
+142.
+143.  // conditionally render based on the app state "timeline"
+144.  const renderChild = (timeline) => {
+145.    return timeline === "init" ? (
+146.      <Init
+147.        playBgSound={playBgSound}
+148.        checkIfMusicPaused={checkIfMusicPaused}
+149.        dismount={dismount}
+150.        setDismount={setDismountProp}
+151.      />
+152.    ) : timeline === "setup" ? (
+153.      <GameSetup
+154.        dismount={dismount}
+155.        fadeOutMusic={fadeOutMusic}
+156.        setDismount={setDismountProp}
+157.      />
+158.    ) : winner ? (
+159.      <WinnerScreen playBgSound={playBgSound} />
+160.    ) : !winner ? (
+161.      <GameStart
+162.        playSound={playSound}
+163.        playBgSound={playBgSound}
+164.        setDismount={setDismount}
+165.      />
+166.    ) : null;
+167.  };
+168.
+169.  return (
+170.    <MainWindow>
+171.      <VolumeContainer timeline={timeline}>
+172.        {volume ? (
+173.          <VolumeOn setVolume={setVolumeProps} />
+174.        ) : (
+175.          <VolumeOff setVolume={setVolumeProps} />
+176.        )}
+177.      </VolumeContainer>
+178.      {renderChild(timeline)}
+179.      <>
+180.        <audio onEnded={() => musicPlayer.current.play()} ref={musicPlayer} />
+181.        <audio ref={soundPlayer} />
+182.        <audio ref={soundPlayer2} />
+183.      </>
+184.    </MainWindow>
+185.  );
+186. }
 ```
 
 The front-end structure is fairly complex so you'll have to properly go through the repository to get the pieces together.
